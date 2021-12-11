@@ -38,16 +38,13 @@ persona1.addMascota("Roco");
 persona1.addMascota("Gerardo");
 persona1.addMascota("Alberto");
 
-console.log(persona1.mascotas);
-console.log(persona1.countMascotas());
+console.log(`La cantidad de mascotas de ${persona1.nombre} es: ${persona1.countMascotas()}.`);
 
 persona1.addBook("Libro 1", "Autor 1");
 persona1.addBook("Libro 2", "Autor 2");
 persona1.addBook("Libro 2", "Autor 2");
 
-console.log(persona1.libros);
-
-console.log(persona1.getBookNames());
+console.log(`Los libros de ${persona1.nombre} son: ${persona1.getBookNames()}`);
 
 
 
