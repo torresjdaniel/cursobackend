@@ -1,9 +1,13 @@
+const libros = [{nombre: "Libro 1", autor: "Autor 1"}, {nombre: "Libro 2", autor: "Autor 2"}, {nombre: "Libro 3", autor: "Autor 3"}];
+const mascotas = ["Roco", "Gerardo", "Alberto"];
+
+
 class Usuario{
-    constructor(nombre, apellido){
+    constructor(nombre, apellido, libros, mascotas){
         this.nombre = nombre;
         this.apellido = apellido;
-        this.libros = [];
-        this.mascotas = [];
+        this.libros = libros;
+        this.mascotas = mascotas;
     }
 
     getFullName(){
@@ -30,19 +34,19 @@ class Usuario{
 
 }
 
-let persona1 = new Usuario("Daniel", "Torres");
+let persona1 = new Usuario("Daniel", "Torres", libros, mascotas);
 
 console.log(persona1.getFullName());
 
-persona1.addMascota("Roco");
-persona1.addMascota("Gerardo");
-persona1.addMascota("Alberto");
+persona1.addMascota("Zeus");
+persona1.addMascota("Negrita");
+persona1.addMascota("Jaguer");
 
 console.log(`La cantidad de mascotas de ${persona1.nombre} es: ${persona1.countMascotas()}.`);
 
-persona1.addBook("Libro 1", "Autor 1");
-persona1.addBook("Libro 2", "Autor 2");
-persona1.addBook("Libro 2", "Autor 2");
+persona1.addBook("Libro 4", "Autor 4");
+persona1.addBook("Libro 5", "Autor 5");
+persona1.addBook("Libro 6", "Autor 6");
 
 console.log(`Los libros de ${persona1.nombre} son: ${persona1.getBookNames()}`);
 
