@@ -16,11 +16,10 @@ var Operacion = /** @class */ (function () {
                 return this.num1 - this.num2;
                 break;
             default:
-                return "Este metodo no cuenta con ese cálculo";
+                return "Este metodo no cuenta con esa operación.";
                 break;
         }
     };
     return Operacion;
 }());
 exports.Operacion = Operacion;
-

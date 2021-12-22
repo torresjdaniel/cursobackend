@@ -1,4 +1,4 @@
-class Operacion{
+export class Operacion{
     
     private num1: number;
     private num2: number;
@@ -21,13 +21,13 @@ class Operacion{
                 break;    
         
             default:
-                return "Este metodo no cuenta con ese cálculo";
+                return "Este metodo no cuenta con esa operación.";
                 break;
         }
     }
 }
 
-export {Operacion};
+
 
 
 
