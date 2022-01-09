@@ -56,6 +56,24 @@ class Contenedor {
           }
     };
 
+    async getAllRandom(){
+      try {
+        const contenido = JSON.parse(await fs.promises.readFile(`./${this.fileName}.txt`, 'utf-8'));
+        const iRandom = parseInt(Math.random() * ((contenido.length)));
+        if (contenido[iRandom] == undefined) {
+          return 'No hay ningún producto en la lista';
+        } else{
+          return contenido[iRandom];
+        }
+        
+      } catch (error) {
+        console.log("No se encontró el archivo o estaba vacio... Pero ya esta resuelto :)");
+            const crearFile = await fs.promises.writeFile(`./${this.fileName}.txt`, "[]")
+            const contenido = JSON.parse(await fs.promises.readFile(`./${this.fileName}.txt`, 'utf-8'));
+            return contenido;
+      }
+    }
+
     async deleteById(id){
         try {
             const contenido = await this.getAll();
@@ -84,3 +102,5 @@ class Contenedor {
 module.exports ={
   Contenedor
 }
+
+

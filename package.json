@@ -18,6 +18,7 @@
   "homepage": "https://github.com/torresjdaniel/cursobackend#readme",
   "dependencies": {
     "express": "^4.17.2",
+    "nodemon": "^2.0.15",
     "ts": "^0.2.2"
   }
 }
