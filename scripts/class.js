@@ -21,8 +21,9 @@ class Api {
     }
 
     save(producto) {
-
-        const id = this.productos.length + 1;
+        let id;
+            
+        this.productos.length === 0 ? (id = 1) : (id = this.productos[this.productos.length - 1].id + 1);
 
         if (producto.title && producto.price && producto.thumbnail) {
             this.productos.push(Object.defineProperty(producto, 'id', {
@@ -32,7 +33,7 @@ class Api {
                 enumerable: true
             }));
 
-            return this.productos[id - 1];
+            return this.productos[this.productos.length - 1];
         } else {
             return 'No es el formato de producto que podes ingresar';
         }
