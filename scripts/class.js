@@ -46,17 +46,9 @@ class Api {
             return { error: 'producto no encontrado' };
         } else {
             if (producto.title && producto.price && producto.thumbnail) {
-                Object.defineProperties(this.productos.find(idBuscado => idBuscado.id === parseInt(id)), {
-                    'title': {
-                        value: producto.title
-                    },
-                    'price': {
-                        value: producto.price
-                    },
-                    'thumbnail': {
-                        value: producto.thumbnail
-                    }
-                })
+                this.productos[id-1].title = producto.title;
+                this.productos[id-1].price = producto.price;
+                this.productos[id-1].thumbnail = producto.thumbnail;
             } else {
                 return 'No es el formato de producto que podes ingresar';
             }
