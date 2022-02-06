@@ -7,7 +7,7 @@ body{
 
 form {
     border: 1px solid black;
-    margin: 5px auto;
+    margin: 25px auto;
     padding: 5px;
 }
 
@@ -15,7 +15,13 @@ h2{
     text-align: center;
 }
 
-.obtener{
-    width: 50%;
-    margin-left: 25% ;
+
+#divProductsList{
+    border: 1px solid black;
+}
+
+td, th{
+    width: 25%;
+    border: 1px solid black;
+    text-align: center;
 }

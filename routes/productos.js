@@ -1,19 +1,21 @@
 const express = require('express');
 const router = express.Router();
 
-const {Api} = require('../scripts/class');
+const {Productos} = require('../scripts/class');
 
-const api = new Api();
+const api = new Productos();
 
 
 router.get('/productos', (req, res) =>{
     const productos = api.getAll();
+    req.app.io.sockets.emit('updateList', api.getAll());
     res.send(productos);
     console.log(productos);
 });
 
 router.post('/productos', (req, res) =>{
     const producto = api.save(req.body);
+    req.app.io.sockets.emit('updateList', api.getAll());
     res.send(`Se recibió el producto: ${JSON.stringify(producto)}`);
     console.log(`Se recibió el producto: ${JSON.stringify(producto)}`);
 });
@@ -36,4 +38,5 @@ router.delete('/productos/:id', (req, res) =>{
     console.log((producto === undefined ? `Se eliminó el producto con id ${req.params.id}` : JSON.stringify(producto)));
 });
 
-module.exports = router;
+module.exports.router = router;
+module.exports.api = api;
