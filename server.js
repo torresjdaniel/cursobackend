@@ -8,7 +8,10 @@ const httpServer = new HttpServer(app);
 const io = new IOServer(httpServer);
 const PORT = 8080;
 
-const messages = [];
+const messages = [{
+  author: "ADMIN",
+  text: "¡Bienvenidos al chat!"
+}];
 
 
 app.use(express.json());
