@@ -11,13 +11,21 @@
 </head>
 <body>
     <h1>Desafio Clase 10</h1>
-    <div id="container">
+    <div id="containerProducts">
         <form id="formAddProduct">
             <h2>Enviar nuevo objeto</h2>
             <input type="text" placeholder="title" name="title" required>
             <input type="number" step="any" placeholder="price" name="price" required>
             <input type="text" placeholder="thumbnail" name="thumbnail" required>
             <button type="submit">Enviar</button>    
+        </form>
+    </div>
+    <div id="containerChat">
+        <form id="formChat">
+            <h2>Centro de mensajes</h2>
+            <input type="email" name="author" placeholder="email" required>
+            <textarea name="text"></textarea>
+            <button type="submit">Enviar mensaje</button>
         </form>
     </div>
     <script src="./js/main.js"></script>
