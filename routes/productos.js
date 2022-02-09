@@ -7,23 +7,23 @@ const api = new Productos();
 
 
 router.get('/productos', (req, res) =>{
-    const productos = api.getAll();
-    req.app.io.sockets.emit('updateList', api.getAll());
-    res.send(productos);
-    console.log(productos);
+    
+    if(Object.entries(req.query).length > 0){
+        const producto = api.getById(req.query.id);
+        console.log(req.query);
+        res.send(producto);
+        console.log(`Este es el producto que buscas: ${JSON.stringify(producto)}`);
+    } else {
+        const productos = api.getAll();
+        res.send(productos);
+        console.log(productos);
+    }    
 });
 
 router.post('/productos', (req, res) =>{
     const producto = api.save(req.body);
-    req.app.io.sockets.emit('updateList', api.getAll());
     res.send(`Se recibió el producto: ${JSON.stringify(producto)}`);
     console.log(`Se recibió el producto: ${JSON.stringify(producto)}`);
-});
-
-router.get('/productos/:id', (req, res) =>{
-    const producto = api.getById(req.params.id);
-    res.send(producto);
-    console.log(`Este es el producto que buscas: ${JSON.stringify(producto)}`);
 });
 
 router.put('/productos/:id', (req, res) =>{
