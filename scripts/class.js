@@ -1,3 +1,4 @@
+const parse = require("nodemon/lib/cli/parse");
 
 class Productos {
 
@@ -46,7 +47,7 @@ class Productos {
 
         const resultado = this.productos.find(idBuscado => idBuscado.id === parseInt(id));
         if (resultado === undefined) {
-            return { error: 'producto no encontrado' };
+            return { error: `Producto no id: ${id} encontrado` };
         } else {
             return resultado;
         }
@@ -59,35 +60,42 @@ class Productos {
 
         if (producto.nombre && producto.precio && producto.foto && producto.stock && producto.codigo && producto.descripcion) {
 
-            // if (this.productos.find(nombre => nombre === parseInt(producto.nombre)).length > 0 && this.productos.find(codigo => codigo === parseInt(producto.codigo)).length > 0){
+            if (this.productos.findIndex(nombreBuscado => nombreBuscado.nombre === producto.nombre) !== -1 && this.productos.findIndex(codigoBuscado => codigoBuscado.codigo === producto.codigo) !== -1){
+                const index = this.productos.findIndex(indexBuscado => indexBuscado.codigo === producto.codigo);
+                this.productos[index].stock = parseInt(this.productos[index].stock) + parseInt(producto.stock);
+                this.productos[index].precio = producto.precio;
+                this.productos[index].foto = producto.foto;
+                this.productos[index].descripcion = producto.descripcion;
+                this.productos[index].timestamp = Date.now();
+                return `Encontramos que ya existe este producto con id: ${this.productos[index].id}. Sumamos el stock nuevo al existente y actualizamos los demás datos`;
+            } else {
+                producto.id = id;
+                producto.timestamp = Date.now();
+                this.productos.push(producto);
+                return this.productos[this.productos.length - 1];
+            }
 
-            // }
-
-            producto.id = id;
-            producto.timestamp = Date.now();
-            this.productos.push(producto);
-            return this.productos[this.productos.length - 1];
         } else {
-            return 'No es el formato de producto que podes ingresar';
+            return `Producto no id: ${id} encontrado`;
         }
     }
 
     updateById(id, producto) {
-        const resultado = this.productos.find(idBuscado => idBuscado.id === parseInt(id));
+        const index = this.productos.findIndex(indexBuscado => indexBuscado.id === parseInt(id));
 
-        if (resultado === undefined) {
-            return { error: 'producto no encontrado' };
+        if (index === -1) {
+            return { error: `Producto no id: ${id} encontrado` };
         } else {
-            if (producto.nombre && producto.precio && producto.foto && producto.stock && producto.codigo && producto.descripcion) {
-                this.productos[id-1].nombre = producto.nombre;
-                this.productos[id-1].precio = producto.precio;
-                this.productos[id-1].foto = producto.foto;
-                this.productos[id-1].codigo = producto.codigo;
-                this.productos[id-1].stock = producto.stock;
-                this.productos[id-1].descripcion = producto.descripcion;
-                // this.productos[id-1].timestamp = producto.timestamp;
+            if (producto.nombre || producto.precio || producto.foto || producto.stock || producto.codigo || producto.descripcion) {
+                this.productos[index].nombre = (producto.nombre === undefined ? this.productos[index].nombre : producto.nombre);
+                this.productos[index].precio = (producto.precio === undefined ? this.productos[index].precio : producto.precio);
+                this.productos[index].foto = (producto.foto === undefined ? this.productos[index].foto : producto.foto);
+                this.productos[index].codigo = (producto.codigo === undefined ? this.productos[index].codigo : producto.codigo);
+                this.productos[index].stock = (producto.stock === undefined ? this.productos[index].stock : producto.stock);
+                this.productos[index].descripcion = (producto.descripcion === undefined ? this.productos[index].descripcion : producto.descripcion);
+                this.productos[index].timestamp = Date.now();
             } else {
-                return 'No es el formato de producto que podes ingresar';
+                return 'No estas ingresando ningún dato a actualizar';
             }
         }
     }
@@ -96,12 +104,83 @@ class Productos {
         const resultado = this.productos.find(idBuscado => idBuscado.id === parseInt(id));
 
         if (resultado === undefined) {
-            return { error: 'producto no encontrado' };
+            return { error: `Producto no id: ${id} encontrado` };
         } else {
             this.productos = this.productos.filter(idEliminado => idEliminado.id !== parseInt(id));
         }
     }
 }
 
+class Carritos{
 
-module.exports = {Productos};
+    constructor(){
+        this.carritos = [];
+    }
+
+    create(){
+        let id;
+        const carrito = {};
+
+        this.carritos.length === 0 ? (id = 1) : (id = this.carritos[this.carritos.length - 1].id + 1);
+        carrito.id = id;
+        carrito.productos = [];
+        this.carritos.push(carrito);
+        return id;
+    
+    }
+
+    deleteById(id) {
+        const resultado = this.carritos.find(idBuscado => idBuscado.id === parseInt(id));
+
+        if (resultado === undefined) {
+            return { error: `Carrito con id: ${id} no encontrado` };
+        } else {
+            this.carritos = this.carritos.filter(idEliminado => idEliminado.id !== parseInt(id));
+        }
+    }
+
+    getById(id) {
+
+        const resultado = this.carritos.find(idBuscado => idBuscado.id === parseInt(id));
+        if (resultado === undefined) {
+            return { error: `Carrito no id: ${id} encontrado` };
+        } else {
+            return resultado.productos;
+        }
+    }
+
+    saveProduct(id, producto){
+        const index = this.carritos.findIndex(indexBuscado => indexBuscado.id === parseInt(id));
+        if (index === -1) {
+            return { error: `Carrito con id: ${idCarrito} no encontrado`};
+        } else {
+            this.carritos[index].productos.push(producto);
+        }
+
+    }
+
+    deleteProductById(idCarrito, idProducto){
+        const index = this.carritos.findIndex(indexBuscado => indexBuscado.id === parseInt(idCarrito));
+
+        if (index === -1) {
+            return { error: `Carrito con id: ${idCarrito} no encontrado`};
+        } else {
+            console.log(index);
+            console.log(this.carritos[index].productos)
+            const resultado = this.carritos[index].productos.find(idBuscado => parseInt(idBuscado.id) === parseInt(idProducto));
+
+            if (resultado === undefined) {
+                return { error: `Producto con id: ${idProducto} no encontrado en el carrito con id: ${idCarrito}`};
+            } else {
+                this.carritos[index].productos = this.carritos[index].productos.filter(idEliminado => parseInt(idEliminado.id) !== parseInt(idProducto));
+        }
+
+        }
+
+        
+    }
+
+}
+
+
+module.exports = {Productos, Carritos};
