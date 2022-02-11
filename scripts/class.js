@@ -1,4 +1,3 @@
-const parse = require("nodemon/lib/cli/parse");
 
 class Productos {
 
