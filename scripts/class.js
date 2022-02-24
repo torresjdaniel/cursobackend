@@ -1,27 +1,9 @@
 
-class Productos {
+class Contenedor {
 
-    constructor() {
-        this.productos = [
-            {
-                title: 'Regla',
-                price: '50',
-                thumbnail: 'https://via.placeholder.com/150',
-                id: 1
-              },
-              {
-                title: 'Lapiz',
-                price: '20',
-                thumbnail: 'https://via.placeholder.com/150',
-                id: 2
-              },
-              {
-                title: 'Lapicera',
-                price: '15',
-                thumbnail: 'https://via.placeholder.com/150',
-                id: 3
-              }
-        ]
+    constructor(dbOptions, table) {
+        this.knex = knex(dbOptions);
+        this.table = table;
     }
 
 
@@ -86,4 +68,4 @@ class Productos {
 }
 
 
-module.exports = {Productos};
+module.exports = {Contenedor};

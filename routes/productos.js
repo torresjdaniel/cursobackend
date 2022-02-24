@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-const {Productos} = require('../scripts/class');
+const {Contenedor} = require('../scripts/class');
 
-const api = new Productos();
+const api = new Contenedor();
 
 
 router.get('/productos', (req, res) =>{
