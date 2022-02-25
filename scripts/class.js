@@ -1,3 +1,4 @@
+const knex = require("knex");
 
 class Contenedor {
 
@@ -7,65 +8,84 @@ class Contenedor {
     }
 
 
-    getAll() {
-        return this.productos;
-    }
-
-    getById(id) {
-
-        const resultado = this.productos.find(idBuscado => idBuscado.id === parseInt(id));
-        if (resultado === undefined) {
-            return { error: 'producto no encontrado' };
-        } else {
-            return resultado;
+    async getAll() {
+        try{
+            const contenido = await this.knex(this.table);
+            return contenido;
         }
+
+        catch (err){
+            return `Algo malo paso: ${err} ${err.sqlMessage}\n${err.sql}`
+        }
+   
+        
     }
 
-    save(producto) {
-        let id;
+    async getById(id) {
+        try{
+            let contenido = await this.knex.from(this.table).select('*').where('id', parseInt(id));
+            return (contenido.length === 0 ? contenido = `No existe el producto con id: ${id}` : contenido );
+
+        }
+
+        catch (err){
+            return `Algo malo paso: ${err.sqlMessage}\n${err.sql}`
+        }
+
+        
+    }
+
+    async save(producto) {
+        try{
+            const contenido = await this.knex(this.table).insert(producto);
+            return contenido;
+
+        }
+
+        catch (err){
+            return `Algo malo paso: ${err.sqlMessage}\n${err.sql}`
+        }
+
+    
+    }
+
+    async updateById(id, producto) {
+        try{
+            const contenido = await this.knex.from(this.table).where('id', parseInt(id)).update(producto);
+            return contenido === 0 ? `Producto con id: ${id} no existente en la bdd` : `Producto con id: ${id} actualizado`;
+
+        }
+
+        catch (err){
+            return `Algo malo paso: ${err.sqlMessage}\n${err.sql}`
+        }
+
+        
+    }
+
+    async deleteById(id) {
+        try{
+            const contenido = await this.knex.from(this.table).where('id', parseInt(id)).del();
+            return contenido === 0 ? `Producto con id: ${id} no existente en la bdd` : `Producto con id: ${id} eliminado`;
             
-        this.productos.length === 0 ? (id = 1) : (id = this.productos[this.productos.length - 1].id + 1);
 
-        if (producto.title && producto.price && producto.thumbnail) {
-            this.productos.push(Object.defineProperty(producto, 'id', {
-                value: id,
-                writable: true,
-                configurable: true,
-                enumerable: true
-            }));
-
-            return this.productos[this.productos.length - 1];
-        } else {
-            return 'No es el formato de producto que podes ingresar';
         }
+
+        catch (err){
+            return `Algo malo paso: ${err.sqlMessage}\n${err.sql}`
+        }
+
+        
     }
 
-    updateById(id, producto) {
-        const resultado = this.productos.find(idBuscado => idBuscado.id === parseInt(id));
-
-        if (resultado === undefined) {
-            return { error: 'producto no encontrado' };
-        } else {
-            if (producto.title && producto.price && producto.thumbnail) {
-                this.productos[id-1].title = producto.title;
-                this.productos[id-1].price = producto.price;
-                this.productos[id-1].thumbnail = producto.thumbnail;
-            } else {
-                return 'No es el formato de producto que podes ingresar';
-            }
-        }
+    destroy(){
+        this.knex.destroy();
     }
 
-    deleteById(id) {
-        const resultado = this.productos.find(idBuscado => idBuscado.id === parseInt(id));
-
-        if (resultado === undefined) {
-            return { error: 'producto no encontrado' };
-        } else {
-            this.productos = this.productos.filter(idEliminado => idEliminado.id !== parseInt(id));
-        }
+    initialize(){
+        this.knex.initialize()
+        
     }
 }
-
 
 module.exports = {Contenedor};
