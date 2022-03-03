@@ -17,8 +17,7 @@ class Contenedor {
         catch (err){
             return `Algo malo paso: ${err} ${err.sqlMessage}\n${err.sql}`
         }
-   
-        
+
     }
 
     async getById(id) {
@@ -31,7 +30,6 @@ class Contenedor {
         catch (err){
             return `Algo malo paso: ${err.sqlMessage}\n${err.sql}`
         }
-
         
     }
 
@@ -45,7 +43,6 @@ class Contenedor {
         catch (err){
             return `Algo malo paso: ${err.sqlMessage}\n${err.sql}`
         }
-
     
     }
 
@@ -59,7 +56,6 @@ class Contenedor {
         catch (err){
             return `Algo malo paso: ${err.sqlMessage}\n${err.sql}`
         }
-
         
     }
 
@@ -74,18 +70,20 @@ class Contenedor {
         catch (err){
             return `Algo malo paso: ${err.sqlMessage}\n${err.sql}`
         }
-
         
     }
 
-    destroy(){
-        this.knex.destroy();
+    destroyKnex(){
+        this.knex.destroy((err) => {
+            if (err) {
+                return 'Algo salio mal';
+            } else {
+                this.knex.initialize();
+                console.log('Conexión bdd retomada desde classContenedor.js');
+            }
+        });
     }
 
-    initialize(){
-        this.knex.initialize()
-        
-    }
 }
 
 module.exports = {Contenedor};

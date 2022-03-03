@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const {Contenedor} = require('../scripts/class');
+const {Contenedor} = require('../scripts/classContenedor');
 
 const mysql = {
     client: 'mysql',
@@ -20,14 +20,14 @@ router.get('/productos', async (req, res) =>{
         req.app.io.sockets.emit('updateList', productos);
         res.send(productos);
         console.log(productos);
-
 });
 
 router.post('/productos', async (req, res) =>{
     const producto = await api.save(req.body);
-    req.app.io.sockets.emit('updateList', await api.getAll());
     res.send(`Se recibió el producto: ${JSON.stringify(producto)}`);
     console.log(`Se recibió el producto: ${JSON.stringify(producto)}`);
+    const productosActualizados = await api.getAll();
+    req.app.io.sockets.emit('updateList', productosActualizados);
 });
 
 router.get('/productos/:id', async (req, res) =>{
