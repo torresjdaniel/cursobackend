@@ -73,17 +73,6 @@ class Contenedor {
         
     }
 
-    destroyKnex(){
-        this.knex.destroy((err) => {
-            if (err) {
-                return 'Algo salio mal';
-            } else {
-                this.knex.initialize();
-                console.log('Conexión bdd retomada desde classContenedor.js');
-            }
-        });
-    }
-
 }
 
 module.exports = {Contenedor};

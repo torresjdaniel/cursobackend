@@ -34,16 +34,6 @@ function createTableProductos () {
     })
     .catch((err) => {
         console.log('Error creando la tabla productos', err);
-    })
-    .finally(() =>{
-        knex.destroy((err) => {
-            if (err) {
-                console.log('Algo salio mal terminando la conexión creando la tabla productos', err) ;
-            } else {
-                knex.initialize();
-                console.log('Conexión bdd retomada luego de crear tabla productos');
-            }
-        });
     });
 }
 
@@ -69,30 +59,9 @@ function createTableMensajes (){
     })
     .catch((err) => {
         console.log('Error creando la tabla mensajes', err);
-    })
-    .finally(() =>{
-        knex.destroy((err) => {
-            if (err) {
-                console.log('Algo salio mal terminando la conexión creando la tabla mensajes', err) ;
-            } else {
-                knex.initialize();
-                console.log('Conexión bdd retomada luego de crear tabla mensajes');
-            }
-        });
     });
 }
 
-// async function addMessages(data) {
-//     return new Promise(() => {
-//         knex('mensajes').insert(data)
-//             .then(() => {
-//                 console.log(`Mensaje recibido de ${data.author} | ${data.date}`);
-//             })
-//             .catch((err) => {
-//                 console.log('Error agregando un nuevo mensaje en addMessages', err);
-//             });
-//     });
-// }
 
 async function addMessages(data){
     try{
