@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const {Productos} = require('../scripts/class');
-const {Carritos} = require('../scripts/class');
+const {Productos} = require('../daos/contenedor');
+const {Carritos} = require('../daos/contenedor');
 
 const productos = new Productos();
 const carritos = new Carritos();
