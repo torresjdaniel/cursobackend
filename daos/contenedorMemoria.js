@@ -1,4 +1,3 @@
-
 class Productos {
 
     constructor() {
@@ -39,16 +38,16 @@ class Productos {
 
 
     getAll() {
-        return this.productos;
+        return  Promise.resolve(this.productos);
     }
 
     getById(id) {
 
         const resultado = this.productos.find(idBuscado => idBuscado.id === parseInt(id));
         if (resultado === undefined) {
-            return { error: `Producto no id: ${id} encontrado` };
+            return Promise.resolve({ error: `Producto no id: ${id} encontrado` });
         } else {
-            return resultado;
+            return  Promise.resolve(resultado);
         }
     }
 
@@ -66,16 +65,16 @@ class Productos {
                 this.productos[index].foto = producto.foto;
                 this.productos[index].descripcion = producto.descripcion;
                 this.productos[index].timestamp = Date.now();
-                return `Encontramos que ya existe este producto con id: ${this.productos[index].id}. Sumamos el stock nuevo al existente y actualizamos los demás datos`;
+                return Promise.resolve(`Encontramos que ya existe este producto con id: ${this.productos[index].id}. Sumamos el stock nuevo al existente y actualizamos los demás datos`);
             } else {
                 producto.id = id;
                 producto.timestamp = Date.now();
                 this.productos.push(producto);
-                return this.productos[this.productos.length - 1];
+                return Promise.resolve(this.productos[this.productos.length - 1]);
             }
 
         } else {
-            return `Producto no id: ${id} encontrado`;
+            return `Producto con id: ${id} no encontrado`;
         }
     }
 
@@ -83,7 +82,7 @@ class Productos {
         const index = this.productos.findIndex(indexBuscado => indexBuscado.id === parseInt(id));
 
         if (index === -1) {
-            return { error: `Producto no id: ${id} encontrado` };
+            return Promise.resolve({ error: `Producto con id: ${id} no encontrado` });
         } else {
             if (producto.nombre || producto.precio || producto.foto || producto.stock || producto.codigo || producto.descripcion) {
                 this.productos[index].nombre = (producto.nombre === undefined ? this.productos[index].nombre : producto.nombre);
@@ -94,7 +93,7 @@ class Productos {
                 this.productos[index].descripcion = (producto.descripcion === undefined ? this.productos[index].descripcion : producto.descripcion);
                 this.productos[index].timestamp = Date.now();
             } else {
-                return 'No estas ingresando ningún dato a actualizar';
+                return Promise.resolve('No estas ingresando ningún dato a actualizar');
             }
         }
     }
@@ -103,7 +102,7 @@ class Productos {
         const resultado = this.productos.find(idBuscado => idBuscado.id === parseInt(id));
 
         if (resultado === undefined) {
-            return { error: `Producto no id: ${id} encontrado` };
+            return Promise.resolve({ error: `Producto con id: ${id} no encontrado` });
         } else {
             this.productos = this.productos.filter(idEliminado => idEliminado.id !== parseInt(id));
         }
@@ -124,7 +123,7 @@ class Carritos{
         carrito.id = id;
         carrito.productos = [];
         this.carritos.push(carrito);
-        return id;
+        return Promise.resolve(id);
     
     }
 
@@ -132,7 +131,7 @@ class Carritos{
         const resultado = this.carritos.find(idBuscado => idBuscado.id === parseInt(id));
 
         if (resultado === undefined) {
-            return { error: `Carrito con id: ${id} no encontrado` };
+            return Promise.resolve({ error: `Carrito con id: ${id} no encontrado` });
         } else {
             this.carritos = this.carritos.filter(idEliminado => idEliminado.id !== parseInt(id));
         }
@@ -142,16 +141,16 @@ class Carritos{
 
         const resultado = this.carritos.find(idBuscado => idBuscado.id === parseInt(id));
         if (resultado === undefined) {
-            return { error: `Carrito no id: ${id} encontrado` };
+            return Promise.resolve({ error: `Carrito con id: ${id} no encontrado` });
         } else {
-            return resultado.productos;
+            return Promise.resolve(resultado.productos);
         }
     }
 
     saveProduct(id, producto){
         const index = this.carritos.findIndex(indexBuscado => indexBuscado.id === parseInt(id));
         if (index === -1) {
-            return { error: `Carrito con id: ${idCarrito} no encontrado`};
+            return Promise.resolve({ error: `Carrito con id: ${idCarrito} no encontrado`});
         } else {
             this.carritos[index].productos.push(producto);
         }
@@ -162,14 +161,14 @@ class Carritos{
         const index = this.carritos.findIndex(indexBuscado => indexBuscado.id === parseInt(idCarrito));
 
         if (index === -1) {
-            return { error: `Carrito con id: ${idCarrito} no encontrado`};
+            return Promise.resolve({ error: `Carrito con id: ${idCarrito} no encontrado`});
         } else {
             console.log(index);
             console.log(this.carritos[index].productos)
             const resultado = this.carritos[index].productos.find(idBuscado => parseInt(idBuscado.id) === parseInt(idProducto));
 
             if (resultado === undefined) {
-                return { error: `Producto con id: ${idProducto} no encontrado en el carrito con id: ${idCarrito}`};
+                return Promise.resolve({ error: `Producto con id: ${idProducto} no encontrado en el carrito con id: ${idCarrito}`});
             } else {
                 this.carritos[index].productos = this.carritos[index].productos.filter(idEliminado => parseInt(idEliminado.id) !== parseInt(idProducto));
         }
