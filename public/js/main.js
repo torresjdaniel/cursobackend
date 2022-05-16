@@ -8,13 +8,32 @@ const productThumbnail = document.querySelector('#formAddProduct input[name=thum
 const divProductsList = document.createElement('div');
 divProductsList.id = 'divProductsList';
 
+const containerFake = document.querySelector('#containerFake');
+const spanChat = document.querySelector('#spanChat');
+const divFakerList = document.createElement('div');
+divFakerList.id = 'divFakerList';
 
 const containerChat = document.querySelector('#containerChat');
 const formChat = document.querySelector('#formChat');
-const chatAuthor = document.querySelector('#formChat input[name=author');
+const chatEmail = document.querySelector('#formChat input[name=email');
+const chatNombre = document.querySelector('#formChat input[name=nombre');
+const chatApellido = document.querySelector('#formChat input[name=apellido');
+const chatEdad = document.querySelector('#formChat input[name=edad');
+const chatAlias = document.querySelector('#formChat input[name=alias');
+const chatAvatar = document.querySelector('#formChat input[name=avatar');
 const chatText = document.querySelector('#formChat textarea[name=text');
 const divChat = document.createElement('div');
 divChat.id = 'divChat';
+
+
+
+const autor = new normalizr.schema.Entity('autor',{},{idAttribute: 'email'});
+const mensaje = new normalizr.schema.Entity('mensaje',{
+    author: autor
+},{idAttribute: '_id'});
+const mensajes = new normalizr.schema.Entity('mensajes', {
+    mensajes: [mensaje],
+})
 
 
 formAddProduct.addEventListener('submit', async (e) =>{
@@ -36,7 +55,14 @@ formChat.addEventListener('submit', async(e) =>{
     e.preventDefault();
     const date = new Date();
     const message = {
-        author: chatAuthor.value,
+        author: {
+            email: chatEmail.value,
+            nombre: chatNombre.value,
+            apellido: chatApellido.value,
+            edad: chatEdad.value,
+            aliass: chatAlias.value,
+            avatar: chatAvatar.value 
+        },
         date: `[${date.getDate()}/${date.getMonth()+1}/${date.getUTCFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}]`,
         text: chatText.value
     };
@@ -48,8 +74,17 @@ socket.on('updateList', async (data) => {
 });
 
 socket.on('messages', async (data) => {
-    renderChat(data);
+    const denormalizeData = normalizr.denormalize(data.result, mensajes, data.entities);
+    const porcentaje = calculoPorcentajeCompre(data, denormalizeData);
+    spanChat.innerHTML = `Compresión: ${porcentaje}%`;
+    renderChat(denormalizeData.mensajes);
 });
+
+
+fetch('http://127.0.0.1:8080/api/productos-test')
+    .then( response => response.json())
+        .then(data => renderFakerList(data));
+
 
 async function renderList(data) {
     const fetchTemplateHbs = await fetch("/templates/productsList.hbs");
@@ -58,6 +93,16 @@ async function renderList(data) {
     const html = template({ products: data });
     divProductsList.innerHTML = html;
     containerProducts.appendChild(divProductsList);
+    
+}
+
+async function renderFakerList(data) {
+    const fetchTemplateHbs = await fetch("/templates/productFake.hbs");
+    const templateHbs = await fetchTemplateHbs.text();
+    const template = Handlebars.compile(templateHbs);
+    const html = template({ products: data });
+    divFakerList.innerHTML = html;
+    containerFake.appendChild(divFakerList);
     
 }
 
@@ -70,3 +115,7 @@ async function renderChat(data) {
     containerChat.appendChild(divChat);  
 }
 
+function calculoPorcentajeCompre(objNorm, objDesNorm){
+    const primerCalculo = ((parseInt(JSON.stringify(objDesNorm).length))*100) / (parseInt(JSON.stringify(objNorm).length));
+    return 100 - primerCalculo
+}

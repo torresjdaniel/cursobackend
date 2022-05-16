@@ -18,11 +18,13 @@
   },
   "homepage": "https://github.com/torresjdaniel/cursobackend#readme",
   "dependencies": {
+    "@faker-js/faker": "^6.3.1",
     "@mapbox/node-pre-gyp": "^1.0.8",
+    "dotenv": "^16.0.1",
     "express": "^4.17.2",
     "knex": "^1.0.3",
-    "mysql": "^2.18.1",
-    "nodemon": "^2.0.15",
+    "mongoose": "^6.3.3",
+    "normalizr": "^3.6.2",
     "socket.io": "^4.4.1"
   }
 }

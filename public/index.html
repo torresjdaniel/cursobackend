@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
     <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js" integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <title>Desafio Clase 10</title>
+    <title>Desafio Clase 21</title>
 </head>
 <body>
-    <h1>Desafio Clase 10</h1>
+    <h1>Desafio Clase 21</h1>
     <div id="containerProducts">
         <form id="formAddProduct">
             <h2>Enviar nuevo objeto</h2>
@@ -20,10 +21,17 @@
             <button type="submit">Enviar</button>    
         </form>
     </div>
+    <div id="containerFake">
+    </div>
     <div id="containerChat">
         <form id="formChat">
-            <h2>Centro de mensajes</h2>
-            <input type="email" name="author" placeholder="email" required>
+            <h2>Centro de mensajes <span id="spanChat">Si lees esto, algo fallo</span></h2>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="text" name="nombre" placeholder="Nombre" required>
+            <input type="text" name="apellido" placeholder="Apellido" required>
+            <input type="number" name="edad" placeholder="Edad" required>
+            <input type="text" name="alias" placeholder="Alias" required>
+            <input type="text" name="avatar" placeholder="Avatar" required>
             <textarea name="text"></textarea>
             <button type="submit">Enviar mensaje</button>
         </form>
