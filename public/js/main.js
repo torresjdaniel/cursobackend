@@ -38,7 +38,7 @@ const mensajes = new normalizr.schema.Entity('mensajes', {
     mensajes: [mensaje],
 })
 
-headerH1.innerHTML = `Bienvenido ${localStorage.getItem('nombre')}`;
+headerH1.innerHTML = `Bienvenidx ${localStorage.getItem('nombre')}`;
 
 
 fetch('/api/productos-test')
