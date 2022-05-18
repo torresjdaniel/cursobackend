@@ -4,6 +4,19 @@ body{
     align-items: center;
 }
 
+header{
+    border: 1px solid black;
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+}
+
+#headerButton{
+    max-width: 50%;
+    height: 80%;
+    align-self: center;
+}
+
 p{
     margin: 10px;
 }

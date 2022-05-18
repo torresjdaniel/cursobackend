@@ -1,5 +1,8 @@
 const socket = io();
 
+const headerH1 = document.querySelector('#headerH1');
+const headerButton = document.querySelector('#headerButton');
+
 const containerProducts = document.querySelector('#containerProducts');
 const formAddProduct = document.querySelector('#formAddProduct');
 const productTitle = document.querySelector('#formAddProduct input[name=title]');
@@ -35,6 +38,21 @@ const mensajes = new normalizr.schema.Entity('mensajes', {
     mensajes: [mensaje],
 })
 
+headerH1.innerHTML = `Bienvenido ${localStorage.getItem('nombre')}`;
+
+
+fetch('/api/productos-test')
+    .then( response => response.json())
+        .then(data => renderFakerList(data));
+
+
+headerButton.addEventListener('click', async (e) =>{
+    e.preventDefault();
+    window.location.href = "/logout";
+    await fetch('/logout', {
+        method: "POST"
+    });
+});
 
 formAddProduct.addEventListener('submit', async (e) =>{
     e.preventDefault();
@@ -79,12 +97,6 @@ socket.on('messages', async (data) => {
     spanChat.innerHTML = `Compresión: ${porcentaje}%`;
     renderChat(denormalizeData.mensajes);
 });
-
-
-fetch('http://127.0.0.1:8080/api/productos-test')
-    .then( response => response.json())
-        .then(data => renderFakerList(data));
-
 
 async function renderList(data) {
     const fetchTemplateHbs = await fetch("/templates/productsList.hbs");

@@ -1,5 +1,6 @@
 const express = require('express');
-const router = require('./routes/productos');
+const routerProductos = require('./routes/productos');
+const routerLogIn = require('./routes/userLog');
 const dotenv = require('dotenv').config();
 const { Server: HttpServer } = require("http");
 const { Server: IOServer } = require("socket.io");
@@ -15,8 +16,9 @@ const PORT = process.env.PORT || 8080;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use(routerLogIn);
 app.use(express.static(__dirname + '/public'));
-app.use('/api', router);
+app.use('/api', routerProductos);
 
 io.on('connection', async (socket) => {
   console.log("Cliente nuevo conectado :O");
