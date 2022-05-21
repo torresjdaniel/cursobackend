@@ -132,4 +132,65 @@ class Mensajes{
     }
 }
 
-module.exports = {Productos, Mensajes};
+class Usuarios {
+
+    constructor(dbOptions, coleccion, schema) {
+        this.dbOptions = dbOptions;
+        this.model = mongoose.model(coleccion, schema);
+    }
+
+    async #setConexion(){
+        try{
+            await mongoose.connect(this.dbOptions);         
+        }
+        catch(err){
+            console.log(`Algo paso conectandose a la bdd de Mongo, ${err}`);
+        }
+    }
+
+    async saveUser(user){
+        try{
+            this.#setConexion();
+            const contenido = await this.model.insertMany(user);
+            return contenido;
+
+        }
+
+        catch (err){
+            return `Algo malo paso con saveUser(): ${err}`
+        }
+    }
+
+    async getUser(userName) {
+        try{
+            this.#setConexion();
+            let contenido = await this.model.findOne({username: userName});
+            return contenido;
+
+        }
+
+        catch (err){
+            return `Algo malo paso con getUser(): ${err}`;
+        }
+        
+    }
+
+    async getById(id) {
+        try{
+            this.#setConexion();
+            let contenido = await this.model.findById(id);
+            return contenido;
+
+        }
+
+        catch (err){
+            return `Algo malo paso con getById(): ${err}`;
+        }
+        
+    }
+
+
+
+}
+
+module.exports = {Productos, Mensajes, Usuarios};

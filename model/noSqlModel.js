@@ -23,11 +23,10 @@ const mensajeSchema = new mongoose.Schema({
     
 });
 
-module.exports = {productoSchema, mensajeSchema};
+const userSchema = new mongoose.Schema({
+    username: {type: String, require: true},
+    password: {type: String, require: true}
+})
 
-const mensajeTest = {
-    prueba: {
-        prueba1: 'lalala',
-        prueba2: 'lololo'
-    }
-};
+module.exports = {productoSchema, mensajeSchema, userSchema};
+

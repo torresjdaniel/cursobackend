@@ -1,9 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const session= require("express-session");
+const {passport} = require('../middlewares/passport');
 const cookieParse = require("cookie-parser");
-const MongoStore = require("connect-mongo");
-const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true }
 
 const path = require("path");
 const mdw = require("../middlewares/authMdw");
@@ -13,11 +12,6 @@ require("dotenv").config();
 
 router.use(cookieParse());
 router.use(session({
-
-    store: MongoStore.create({
-        mongoUrl: process.env.stringNoSql,
-        mongoOptions: advancedOptions
-    }),
     secret:"shhhhhhhhhhhhhhhhhhhhhh",
     resave:true,
     saveUninitialized:false,
@@ -27,33 +21,40 @@ router.use(session({
 
 }));
 
+router.use(passport.initialize());
+router.use(passport.session());
+
 router.get("/",mdw.validarSession,(req, res)=>{
     res.sendFile(path.join(__dirname,"..","public/index.html"));
 
 })
 
 router.get("/login",(req, res)=>{
-    res.sendFile(path.join(__dirname,"..","public/login.html"));
+    res.sendFile(path.join(__dirname,"..","public/pages/login.html"));
 })  
 
-router.post("/login",(req, res)=>{
+router.post("/login",passport.authenticate('login', {failureRedirect: '/faillogin', successRedirect: '/' }))
 
-    let {nombre} = req.body;   
-    if(nombre){
-        req.session.nombre = {nombre:nombre};
-        return res.json({nombre});
-    }
+router.get("/faillogin",(req, res)=>{
+    res.sendFile(path.join(__dirname,"..","public/pages/faillogin.html"));
+}) 
 
-    return res.json({status:"error", });
-})
+router.get("/register",(req, res)=>{
+    res.sendFile(path.join(__dirname,"..","public/pages/register.html"));
+})  
+
+router.post("/register",passport.authenticate('register', { failureRedirect: '/failregister', successRedirect: '/login' }))
+
+router.get("/failregister",(req, res)=>{
+    res.sendFile(path.join(__dirname,"..","public/pages/failregister.html"));
+}) 
 
 router.get("/logout",(req, res)=>{
-    res.sendFile(path.join(__dirname,"..","public/logout.html"));
+    res.sendFile(path.join(__dirname,"..","public/pages/logout.html"));
 }) 
 
 router.post("/logout",mdw.validarSession,(req, res)=>{
-    req.session.destroy();
-    res.status(200);
+    req.logout();
 })
 
 module.exports = router;
