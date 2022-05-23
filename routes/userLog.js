@@ -25,18 +25,20 @@ router.use(passport.initialize());
 router.use(passport.session());
 
 router.get("/",mdw.validarSession,(req, res)=>{
-    res.sendFile(path.join(__dirname,"..","public/index.html"));
+    res.status(301).sendFile(path.join(__dirname,"..","public/index.html"));
 
 })
+
 
 router.get("/login",(req, res)=>{
     res.sendFile(path.join(__dirname,"..","public/pages/login.html"));
 })  
 
-router.post("/login",passport.authenticate('login', {failureRedirect: '/faillogin', successRedirect: '/' }))
+router.post("/login",passport.authenticate('login', {failureRedirect: '/faillogin', successRedirect: '/' }));
+
 
 router.get("/faillogin",(req, res)=>{
-    res.sendFile(path.join(__dirname,"..","public/pages/faillogin.html"));
+    res.json("'estado': 'fallo ok'");
 }) 
 
 router.get("/register",(req, res)=>{
@@ -55,6 +57,7 @@ router.get("/logout",(req, res)=>{
 
 router.post("/logout",mdw.validarSession,(req, res)=>{
     req.logout();
+    req.session.destroy();
 })
 
 module.exports = router;

@@ -1,7 +1,7 @@
 
 function validarSession(req, res, next) {
     if (req.isAuthenticated()) {
-      next()
+      next();
     } else {
       res.redirect('/login')
     }
