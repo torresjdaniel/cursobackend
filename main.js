@@ -2,8 +2,6 @@ const cluster = require('cluster')
 const os = require('os')
 const yargs = require('yargs/yargs')(process.argv.slice(2));
 const {server} = require('./server')
-const express = require('express')
-const app = express()
 
 const args = yargs
 .default({
@@ -36,11 +34,5 @@ if(MODE == 'CLUSTER' && cluster.isMaster) {
 }
 
 else {
-    app.get('/', (req, res) => {
-        res.send(`Servidor express en ${PORT} - <b>PID ${process.pid}</b> - ${new Date().toLocaleString()}`)
-    })
-    
-    app.listen(PORT, err => {
-        if (!err) console.log(`Servidor express escuchando en el puerto ${PORT} - PID WORKER ${process.pid}`)
-    })
+    server(PORT);
 }
