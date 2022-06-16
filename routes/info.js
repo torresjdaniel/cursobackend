@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const path = require("path");
 const os = require('os');
+const {logger} = require('../model/loggerModel');
 
 const info = {
     argumentosDeEntrada: process.argv,
@@ -17,10 +18,12 @@ const info = {
 
 router.get('/infoDatos', (req, res) =>{
     res.send(info);
+    logger.info(`ruta: /infoDatos | metodo: GET |res: ${info}`);
 });
 
 router.get('/info', (req, res) =>{
     res.sendFile(path.join(__dirname,"..","public/pages/info.html"));
+    logger.info(`ruta: /info | metodo: GET | res: info.html`);
 });
 
 module.exports = router;

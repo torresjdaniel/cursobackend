@@ -1,5 +1,6 @@
 
 const mongoose = require('mongoose');
+const {logger} = require('../model/loggerModel');
 
 class Productos {
 
@@ -13,7 +14,7 @@ class Productos {
             await mongoose.connect(this.dbOptions);         
         }
         catch(err){
-            console.log(`Algo paso conectandose a la bdd de Mongo, ${err}`);
+            logger.error(`Algo paso conectandose a la bdd de Mongo desde Productos, ${err}`);
         }
     }
 
@@ -25,6 +26,7 @@ class Productos {
         }
 
         catch (err){
+            logger.error(`Algo malo paso con getAll(): ${err}`);
             return `Algo malo paso con getAll(): ${err}`
         }
 
@@ -39,6 +41,7 @@ class Productos {
         }
 
         catch (err){
+            logger.error(`Algo malo paso con getById(): ${err}`);
             return `Algo malo paso con getById(): ${err}`;
         }
         
@@ -53,6 +56,7 @@ class Productos {
         }
 
         catch (err){
+            logger.error(`Algo malo paso con save(): ${err}`);
             return `Algo malo paso con save(): ${err}`
         }
     
@@ -67,6 +71,7 @@ class Productos {
         }
 
         catch (err){
+            logger.error(`Algo malo paso con updateById(): ${err}`);
             return `Algo malo paso con updateById(): ${err}`
         }
         
@@ -82,7 +87,8 @@ class Productos {
         }
 
         catch (err){
-            return `Algo malo paso: ${err}`
+            logger.error(`Algo malo paso con deleteById(): ${err}`);
+            return `Algo malo paso con deleteById(): ${err}`
         }
         
     }
@@ -102,7 +108,7 @@ class Mensajes{
             await mongoose.connect(this.dbOptions);         
         }
         catch(err){
-            console.log(`Algo paso conectandose a la bdd de Mongo, ${err}`);
+            logger.error(`Algo paso conectandose a la bdd de Mongo desde Mensajes, ${err}`);
         }
     }
 
@@ -114,6 +120,7 @@ class Mensajes{
         }
 
         catch (err){
+            logger.error(`Algo malo paso con listMessages(): ${err}`);
             return `Algo malo paso con listMessages(): ${err}`
         }
     }
@@ -127,7 +134,8 @@ class Mensajes{
         }
 
         catch (err){
-            return `Algo malo paso con save(): ${err}`
+            logger.error(`Algo malo paso con addMessages(): ${err}`);
+            return `Algo malo paso con addMessages(): ${err}`
         }
     }
 }
@@ -144,7 +152,7 @@ class Usuarios {
             await mongoose.connect(this.dbOptions);         
         }
         catch(err){
-            console.log(`Algo paso conectandose a la bdd de Mongo, ${err}`);
+            logger.error(`Algo paso conectandose a la bdd de Mongo desde Usuarios, ${err}`);
         }
     }
 
@@ -157,6 +165,7 @@ class Usuarios {
         }
 
         catch (err){
+            logger.error(`Algo malo paso con saveUser(): ${err}`);
             return `Algo malo paso con saveUser(): ${err}`
         }
     }
@@ -170,12 +179,13 @@ class Usuarios {
         }
 
         catch (err){
+            logger.error(`Algo malo paso con getUser() : ${err}`);
             return `Algo malo paso con getUser(): ${err}`;
         }
         
     }
 
-    async getById(id) {
+    async getUserById(id) {
         try{
             this.#setConexion();
             let contenido = await this.model.findById(id);
@@ -184,7 +194,8 @@ class Usuarios {
         }
 
         catch (err){
-            return `Algo malo paso con getById(): ${err}`;
+            logger.error(`Algo malo paso con getUserById() : ${err}`);
+            return `Algo malo paso con getUserById(): ${err}`;
         }
         
     }

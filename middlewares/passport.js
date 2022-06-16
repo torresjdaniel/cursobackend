@@ -1,8 +1,9 @@
 const {usuarios} = require('../daos/contenedorImport')
-const session = require('express-session');
+// const session = require('express-session');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
 const LocalStrategy = require('passport-local').Strategy;
+const {logger} = require('../model/loggerModel');
 
 
 passport.use('login', new LocalStrategy(
@@ -11,18 +12,18 @@ passport.use('login', new LocalStrategy(
     const user = await usuarios.getUser(username);
 
     if(user == null){
-      console.log('user no existe'); 
+      logger.info('user no existe'); 
       return done(null, false);
     };
 
     const passCheck = await bcrypt.compare(password, user.password);
 
     if(passCheck == false){
-      console.log('contraseña incorrecta');
+      logger.info('contraseña incorrecta');
       return done(null, false)
     };
 
-    console.log('usuario registrado, Ingreso OK')
+    logger.info('usuario registrado, Ingreso OK')
     return done(null, user)
 
  }));
@@ -34,7 +35,7 @@ passport.use('register', new LocalStrategy({
       let user = await usuarios.getUser(username);
       
       if(user){
-        console.log('Usuario ya registrado');
+        logger.info('Usuario ya registrado');
         return done(null, false);
       };
 
@@ -47,7 +48,7 @@ passport.use('register', new LocalStrategy({
 
       user = await usuarios.saveUser(newUser);
 
-      console.log(`Este user se registro ${user}`);
+      logger.info(`Este user se registro ${user}`);
       
       return done(null, user);
 
@@ -59,7 +60,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser(async (id, done) => {
-  const idF = await usuarios.getById(id)
+  const idF = await usuarios.getUserById(id)
   done(null, idF);
 });
      
