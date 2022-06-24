@@ -1,11 +1,11 @@
-const express = require('express');
-const router = require('./routes/endPoints');
+import express, { json, urlencoded } from 'express';
+import router from './routes/endPoints.js';
 
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(json());
+app.use(urlencoded({ extended: true }));
 
 app.use('/api', router);
 

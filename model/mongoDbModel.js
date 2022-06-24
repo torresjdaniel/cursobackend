@@ -1,7 +1,9 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
+const Schema = mongoose.Schema;
 
 
-const productoSchema = new mongoose.Schema({
+const productoSchema = new Schema({
     nombre: { type: String, require: true },
     precio: { type: Number, require: true },
     foto: { type: String, required: true },
@@ -12,9 +14,9 @@ const productoSchema = new mongoose.Schema({
 
 });
 
-const carritoSchema = new mongoose.Schema({
+const carritoSchema = new Schema({
     productos: [productoSchema],
 });
 
 
-module.exports = {productoSchema, carritoSchema};
+export default {productoSchema, carritoSchema};

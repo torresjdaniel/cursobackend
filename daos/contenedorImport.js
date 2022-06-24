@@ -1,26 +1,31 @@
-const contenedorSql = require('./contenedorSql');
-const contenedorNoSql = require('./contenedorNoSql');
-const contenedorMemoria = require('./contenedorMemoria');
-const {productoSchema} = require('../model/noSqlModel');
-const {carritoSchema} = require('../model/noSqlModel');
-const dotenv = require('dotenv').config();
+import {ProductosSql} from './contenedorSql.js';
+import {CarritosSql} from './contenedorSql.js';
+import {ProductosMemoria} from './contenedorMemoria.js';
+import {CarritosMemoria} from './contenedorMemoria.js';
+import {ProductosMongoDb} from './contenedorMongoDb.js';
+import {CarritosMongoDb} from './contenedorMongoDb.js';
+import productoSchema from '../model/mongoDbModel.js';
+import carritoSchema  from '../model/mongoDbModel.js';
+import 'dotenv/config';
 let productos;
 let carritos;
 
+
+
 switch (process.env.tipoPersistencia.toLocaleLowerCase()) {
-    case 'nosql':
-        productos = new contenedorNoSql.Productos(process.env.stringNoSql, process.env.coleccionProductos, productoSchema);
-        carritos = new contenedorNoSql.Carritos(process.env.stringNoSql, process.env.coleccionCarritos, carritoSchema);
+    case 'mongodb':
+        productos = new ProductosMongoDb(process.env.stringNoSql, process.env.coleccionProductos, productoSchema);
+        carritos = new CarritosMongoDb(process.env.stringNoSql, process.env.coleccionCarritos, carritoSchema);
         break;
     
     case 'sql':
-        productos = new contenedorSql.Productos(JSON.parse(process.env.stringSql), process.env.tablaProductos);
-        carritos = new contenedorSql.Carritos(JSON.parse(process.env.stringSql), process.env.tablaCarritos);
+        productos = new ProductosSql(JSON.parse(process.env.stringSql), process.env.tablaProductos);
+        carritos = new CarritosSql(JSON.parse(process.env.stringSql), process.env.tablaCarritos);
         break;
         
     case 'memoria':
-        productos = new contenedorMemoria.Productos();
-        carritos = new contenedorMemoria.Carritos();
+        productos = new ProductosMemoria();
+        carritos = new CarritosMemoria();
         break;    
 
     default:
@@ -28,5 +33,5 @@ switch (process.env.tipoPersistencia.toLocaleLowerCase()) {
         break;
 }
 
-module.exports = {carritos, productos};
+export {carritos, productos};
 

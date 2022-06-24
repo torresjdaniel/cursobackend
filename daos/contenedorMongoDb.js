@@ -1,16 +1,19 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
+const model = mongoose.model;
+const connect = mongoose.connect;
 
 
-class Productos {
+class ProductosMongoDb {
 
     constructor(dbOptions, coleccion, schema) {
         this.dbOptions = dbOptions;
-        this.model = mongoose.model(coleccion, schema);
+        this.model = model(coleccion, schema);
     }
 
     async #setConexion(){
         try{
-            await mongoose.connect(this.dbOptions);         
+            await connect(this.dbOptions);         
         }
         catch(err){
             console.log(`Algo paso conectandose a la bdd de Mongo, ${err}`);
@@ -90,16 +93,16 @@ class Productos {
 
 }
 
-class Carritos{
+class CarritosMongoDb{
 
     constructor(dbOptions, coleccion, schema) {
         this.dbOptions = dbOptions;
-        this.model = mongoose.model(coleccion, schema);
+        this.model = model(coleccion, schema);
     }
 
     async #setConexion(){
         try{
-            await mongoose.connect(this.dbOptions);         
+            await connect(this.dbOptions);         
         }
         catch(err){
             console.log(`Algo paso conectandose a la bdd de Mongo, ${err}`);
@@ -177,4 +180,4 @@ class Carritos{
 
 }
 
-module.exports = {Productos, Carritos};
+export {ProductosMongoDb, CarritosMongoDb};

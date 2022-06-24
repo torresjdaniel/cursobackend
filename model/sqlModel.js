@@ -1,5 +1,5 @@
-const dotenv = require('dotenv').config();
-const knexx = require("knex");
+import 'dotenv/config';
+import knexx from "knex";
 
 const knex = knexx(process.env.stringSql);
 

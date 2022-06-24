@@ -1,6 +1,6 @@
-const knex = require("knex");
+import knex from "knex";
 
-class Productos {
+class ProductosSql {
 
     constructor(dbOptions, table) {
         this.knex = knex(dbOptions);
@@ -75,7 +75,7 @@ class Productos {
 
 }
 
-class Carritos{
+class CarritosSql{
 
     constructor(dbOptions, table){
         this.knex = knex(dbOptions);
@@ -148,5 +148,5 @@ class Carritos{
 
 }
 
-module.exports = {Productos, Carritos};
+export {ProductosSql, CarritosSql};
 

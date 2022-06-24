@@ -1,4 +1,4 @@
-class Productos {
+class ProductosMemoria {
 
     constructor() {
         this.productos = [
@@ -109,7 +109,7 @@ class Productos {
     }
 }
 
-class Carritos{
+class CarritosMemoria{
 
     constructor(){
         this.carritos = [];
@@ -181,4 +181,4 @@ class Carritos{
 }
 
 
-module.exports = {Productos, Carritos};
+export {ProductosMemoria, CarritosMemoria};

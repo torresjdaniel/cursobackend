@@ -1,8 +1,8 @@
-const express = require('express');
-const router = express.Router();
+import { Router } from 'express';
+const router = Router();
 
-const {productos} = require('../daos/contenedorImport');
-const {carritos} = require('../daos/contenedorImport');
+import {productos}  from '../daos/contenedorImport.js';
+import {carritos}  from '../daos/contenedorImport.js';
 
 
 router.get('/productos/:id?', async (req, res) =>{
@@ -67,4 +67,4 @@ router.get('/carrito/:id/productos', async (req, res) =>{
 });
 
 
-module.exports = router;
+export default router;
