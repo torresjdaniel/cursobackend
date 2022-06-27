@@ -1,10 +1,11 @@
 import mongoose from 'mongoose';
+import logger from '../logger/lg4js.js'
 
 const model = mongoose.model;
 const connect = mongoose.connect;
 
 
-class ProductosMongoDb {
+class Productos{
 
     constructor(dbOptions, coleccion, schema) {
         this.dbOptions = dbOptions;
@@ -16,7 +17,7 @@ class ProductosMongoDb {
             await connect(this.dbOptions);         
         }
         catch(err){
-            console.log(`Algo paso conectandose a la bdd de Mongo, ${err}`);
+            logger.error(`Algo malo paso con setConexion() Productos, ${err}`);
         }
     }
 
@@ -29,6 +30,7 @@ class ProductosMongoDb {
         }
 
         catch (err){
+            logger.error(`Algo malo paso con getAll(), ${err}`);
             return `Algo malo paso con getAll(): ${err}`
         }
 
@@ -43,6 +45,7 @@ class ProductosMongoDb {
         }
 
         catch (err){
+            logger.error(`Algo malo paso con getById(), ${err}`);
             return `Algo malo paso con getById(): ${err}`;
         }
         
@@ -57,6 +60,7 @@ class ProductosMongoDb {
         }
 
         catch (err){
+            logger.error(`Algo malo paso con save(), ${err}`);
             return `Algo malo paso con save(): ${err}`
         }
     
@@ -71,6 +75,7 @@ class ProductosMongoDb {
         }
 
         catch (err){
+            logger.error(`Algo malo paso con updateById(), ${err}`);
             return `Algo malo paso con updateById(): ${err}`
         }
         
@@ -86,14 +91,15 @@ class ProductosMongoDb {
         }
 
         catch (err){
-            return `Algo malo paso: ${err}`
+            logger.error(`Algo malo paso con deleteById(), ${err}`);
+            return `Algo malo paso con deleteById(), ${err}`;
         }
         
     }
 
 }
 
-class CarritosMongoDb{
+class Carritos{
 
     constructor(dbOptions, coleccion, schema) {
         this.dbOptions = dbOptions;
@@ -105,7 +111,7 @@ class CarritosMongoDb{
             await connect(this.dbOptions);         
         }
         catch(err){
-            console.log(`Algo paso conectandose a la bdd de Mongo, ${err}`);
+            logger.error(`Algo malo paso con setConexion Carritos, ${err}`);
         }
     }
 
@@ -116,6 +122,7 @@ class CarritosMongoDb{
             return contenido[0].id;
         } 
         catch (err) {
+            logger.error(`Algo malo paso con create(), ${err}`);
             return `Fallo creando carrito con create():${err}`;
         }
         }
@@ -130,7 +137,8 @@ class CarritosMongoDb{
         }
 
         catch (err){
-            return `Algo malo paso: ${err.sqlMessage}\n${err.sql}`
+            logger.error(`Algo malo paso con deleteById, ${err}`);
+            return `Algo malo paso con deleteById, ${err}`;
         }
     }
 
@@ -143,7 +151,8 @@ class CarritosMongoDb{
         }
 
         catch (err){
-            return `Algo malo paso: ${err.sqlMessage}\n${err.sql}`
+            logger.error(`Algo malo paso con getById(), ${err}`);
+            return `Algo malo paso con getById(), ${err}`;
         }
         
     }
@@ -158,6 +167,7 @@ class CarritosMongoDb{
         }
 
         catch (err){
+            logger.error(`Algo malo paso con saveProduct(), ${err}`);
             return `Algo malo paso en saveProduct(): ${err}`
         }
     }
@@ -173,11 +183,76 @@ class CarritosMongoDb{
         }
 
         catch (err){
-            return `Algo malo paso: ${err}`
+            logger.error(`Algo malo paso con deleteProductById, ${err}`);
+            return `Algo malo paso con deleteProductById, ${err}`;
         }
     }
 
 
 }
 
-export {ProductosMongoDb, CarritosMongoDb};
+class Usuarios {
+
+    constructor(dbOptions, coleccion, schema) {
+        this.dbOptions = dbOptions;
+        this.model = model(coleccion, schema);
+    }
+
+    async #setConexion(){
+        try{
+            await connect(this.dbOptions);         
+        }
+        catch(err){
+            logger.error(`Algo paso conectandose a la bdd de Mongo desde Usuarios, ${err}`);
+        }
+    }
+
+    async saveUser(user){
+        try{
+            this.#setConexion();
+            const contenido = await this.model.insertMany(user);
+            return contenido;
+
+        }
+
+        catch (err){
+            logger.error(`Algo malo paso con saveUser(): ${err}`);
+            return `Algo malo paso con saveUser(): ${err}`
+        }
+    }
+
+    async getUser(userName) {
+        try{
+            this.#setConexion();
+            let contenido = await this.model.findOne({username: userName});
+            return contenido;
+
+        }
+
+        catch (err){
+            logger.error(`Algo malo paso con getUser() : ${err}`);
+            return `Algo malo paso con getUser(): ${err}`;
+        }
+        
+    }
+
+    async getUserById(id) {
+        try{
+            this.#setConexion();
+            let contenido = await this.model.findById(id);
+            return contenido;
+
+        }
+
+        catch (err){
+            logger.error(`Algo malo paso con getUserById() : ${err}`);
+            return `Algo malo paso con getUserById(): ${err}`;
+        }
+        
+    }
+
+
+
+}
+
+export {Productos, Carritos, Usuarios};
