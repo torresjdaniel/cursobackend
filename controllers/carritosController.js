@@ -15,8 +15,8 @@ export async function post(req, res){
 
 export async function postProductos(req, res){
     const carrito = await carritos.saveProduct(req.params.id, req.body);
-    res.send((carrito === undefined ? `Se guardo el producto con id: ${req.body.id} en el carrito con id: ${req.params.id}` : JSON.stringify(carrito)));
-    logger.info((carrito === undefined ? `Se guardo el producto con id: ${req.body.id} en el carrito con id: ${req.params.id}` : JSON.stringify(carrito)));
+    res.send((carrito === undefined ? `Se guardo el producto con id: ${req.body._id} en el carrito con id: ${req.params.id}` : JSON.stringify(carrito)));
+    logger.info((carrito === undefined ? `Se guardo el producto con id: ${req.body._id} en el carrito con id: ${req.params.id}` : JSON.stringify(carrito)));
 }
 
 export async function del(req, res){

@@ -4,19 +4,27 @@ import validarSession from './mdw/validarSession.js';
 import productosRouter from './routes/productosRouter.js';
 import carritosRouter from './routes/carritosRouter.js';
 import logInRouter from './routes/loginRouter.js';
+import logInOkRouter from './routes/loginOkRouter.js';
 import failLogInRouter from './routes/failLogInRouter.js';
 import registerRouter from './routes/registerRouter.js';
+import registerOkRouter from './routes/registerOkRouter.js';
 import failRegisterRouter from './routes/failRegisterRouter.js';
 import logOutRouter from './routes/logOutRouter.js';
+import userRouter from './routes/userRouter.js';
 import passport from './auth/passportConfig.js';
 import logger from './logger/lg4js.js'
 import 'dotenv/config';
+import path from 'path'
+import { fileURLToPath } from 'url';
 
 const app = express();
 const PORT = process.env.PORT || 8080;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 app.use(json());
 app.use(urlencoded({ extended: true }));
+app.use(express.static(__dirname + '/public'));
 
 app.use(
   session({
@@ -32,9 +40,14 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.use(logInRouter, failLogInRouter, registerRouter, failRegisterRouter, logOutRouter);
+app.use(logInRouter,logInOkRouter, failLogInRouter, registerRouter, registerOkRouter, failRegisterRouter, logOutRouter, userRouter);
 
 app.use('/api', validarSession, productosRouter, carritosRouter);
+
+app.post('/prueba', (req, res) =>{
+  res.send(req.user.username);
+  logger.info(req.user.username);
+})
 
 app.use((req, res) => {
   const { url, method } = req;

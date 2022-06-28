@@ -1,4 +1,4 @@
-import logger from "../logger/lg4js";
+import logger from "../logger/lg4js.js";
 
 export default function validarSession(req, res, next) {
     if (req.isAuthenticated()) {

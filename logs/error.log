@@ -1,0 +1,8 @@
+[2022-06-28T00:17:13.921] [ERROR] generalLogger - Algo malo paso con create(), ValidationError: productos: Cast to embedded failed for value "[]" (type string) at path "productos" because of "ObjectParameterError"
+[2022-06-28T00:24:21.037] [ERROR] generalLogger - Algo malo paso con create(), ValidationError: productos: Cast to embedded failed for value "[{}]" (type string) at path "productos" because of "ObjectParameterError"
+[2022-06-28T00:36:15.494] [ERROR] generalLogger - Algo malo paso con saveProduct(), SyntaxError: Unexpected end of JSON input
+[2022-06-28T00:39:48.593] [ERROR] generalLogger - Algo malo paso con saveProduct(), SyntaxError: Unexpected end of JSON input
+[2022-06-28T00:43:59.994] [ERROR] generalLogger - Algo malo paso con saveProduct(), MongoBulkWriteError: E11000 duplicate key error collection: myFirstDatabase.carritos index: _id_ dup key: { _id: ObjectId('627bc7a866530b6d6e6397a1') }
+[2022-06-28T01:21:32.025] [ERROR] generalLogger - Algo malo paso con saveUser(): ValidationError: idCarrito: Path `idCarrito` is required., avatarImgName: Path `avatarImgName` is required.
+[2022-06-28T01:22:41.521] [ERROR] generalLogger - Algo malo paso con saveUser(): ValidationError: idCarrito: Path `idCarrito` is required., avatarImgName: Path `avatarImgName` is required.
+[2022-06-28T01:26:09.451] [ERROR] generalLogger - Algo malo paso con saveUser(): ValidationError: idCarrito: Path `idCarrito` is required., avatarImgName: Path `avatarImgName` is required.

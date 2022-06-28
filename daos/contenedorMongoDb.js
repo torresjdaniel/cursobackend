@@ -118,7 +118,7 @@ class Carritos{
     async create(){
         try {
             this.#setConexion();
-            const contenido = await this.model.insertMany({productos: "[]"});
+            const contenido = await this.model.insertMany({productos: []});
             return contenido[0].id;
         } 
         catch (err) {
@@ -161,9 +161,9 @@ class Carritos{
         try{
             this.#setConexion();
             const contenido = await this.model.findById(id);
-            const productos = JSON.parse(contenido.productos);
+            const productos = contenido.productos;
             productos.push(producto);
-            await this.model.insertMany(productos);
+            await this.model.findByIdAndUpdate(id, {productos: productos});
         }
 
         catch (err){
@@ -176,9 +176,9 @@ class Carritos{
         try{
             this.#setConexion();
             const carrito = await this.model.findById(idCarrito);
-            const productosParse = JSON.parse(carrito.productos);
-            const productosUpdate = productosParse.filter(idEliminado => idEliminado.id !== parseInt(idProducto));
-            await this.model.findByIdAndUpdate(idCarrito, JSON.parse(productosUpdate));
+            const productos = carrito.productos;
+            const productosUpdate = productos.filter(idEliminado => idEliminado.id !== idProducto);
+            await this.model.findByIdAndUpdate(idCarrito, {productos: productosUpdate});
 
         }
 

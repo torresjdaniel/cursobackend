@@ -1,4 +1,5 @@
 import {usuarios} from '../daos/contenedorImport.js';
+import nuevoUser from '../model/user.js';
 import passport from 'passport';
 import {Strategy as LocalStrategy } from 'passport-local';
 import bcrypt from 'bcrypt';
@@ -39,16 +40,23 @@ passport.use('login', new LocalStrategy(
    
          const passHash = await bcrypt.hash(password, 10);
    
-         const newUser = {
-             username: username,
-             password: passHash
-         }
-   
+        //  const newUser = {
+        //      username: username,
+        //      password: passHash,
+        //      nombre: req.body.nombre,
+        //      direccion: req.body.direccion,
+        //      edad: req.body.edad,
+        //      avatarImgName: path.join(__dirname,'..',`${req.file.path}`),
+        //      idCarrito: ""
+        //  }
+        
+         const newUser = await nuevoUser(username, passHash, req);
+
          user = await usuarios.saveUser(newUser);
    
-         logger.info(`Este user se registro ${user}`);
+         logger.info(`Este user se registro ${user[0]}`);
          
-         return done(null, user);
+         return done(null, user[0]);
    
     }));
    

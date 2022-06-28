@@ -3,7 +3,7 @@ const carritosRouter = Router();
 
 import * as carritosController from '../controllers/carritosController.js';
 
-carritosRouter.get('/carrito/:id/productos', carritosController.get);
+carritosRouter.get('/carrito/:id', carritosController.get);
 carritosRouter.post('/carrito', carritosController.post);
 carritosRouter.post('/carrito/:id/productos', carritosController.postProductos);
 carritosRouter.delete('/carrito/:id', carritosController.del);

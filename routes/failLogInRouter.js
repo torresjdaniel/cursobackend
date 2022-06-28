@@ -2,6 +2,6 @@ import { Router } from 'express';
 const failLogInRouter = Router();
 import * as failLogInController from '../controllers/failLogInController.js';
 
-failLogInRouter.get("/login", failLogInController.get);  
+failLogInRouter.post("/faillogin", failLogInController.post);  
 
 export default failLogInRouter;

@@ -18,9 +18,15 @@ const carritoSchema = new Schema({
     productos: [productoSchema],
 });
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
     username: {type: String, require: true},
-    password: {type: String, require: true}
+    password: {type: String, require: true},
+    nombre: {type: String, require: true},
+    direccion: {type: String, require: true},
+    edad: {type: Number, require: true},
+    tel: {type: Number, require: true},
+    avatarImgName: { type: String, required: true },
+    idCarrito:{ type: String, required: true }
 });
 
 
