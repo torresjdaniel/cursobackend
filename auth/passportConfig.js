@@ -39,17 +39,7 @@ passport.use('login', new LocalStrategy(
          };
    
          const passHash = await bcrypt.hash(password, 10);
-   
-        //  const newUser = {
-        //      username: username,
-        //      password: passHash,
-        //      nombre: req.body.nombre,
-        //      direccion: req.body.direccion,
-        //      edad: req.body.edad,
-        //      avatarImgName: path.join(__dirname,'..',`${req.file.path}`),
-        //      idCarrito: ""
-        //  }
-        
+    
          const newUser = await nuevoUser(username, passHash, req);
 
          user = await usuarios.saveUser(newUser);

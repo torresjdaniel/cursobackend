@@ -9,7 +9,6 @@ let productos;
 let carritos;
 let usuarios;
 
-
 switch (process.env.tipoPersistencia.toLocaleLowerCase()) {
     case 'mongodb':
         productos = new contenedorMongoDb.Productos(process.env.stringNoSql, process.env.coleccionProductos, productoSchema);

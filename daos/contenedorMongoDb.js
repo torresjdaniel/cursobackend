@@ -146,7 +146,7 @@ class Carritos{
         try{
             this.#setConexion();
             let contenido = await this.model.findById(id);
-            return (contenido.length === 0 ? contenido = `No existe el carrito con id: ${id}` : contenido );
+            return (contenido === null ? contenido = `No existe el carrito con id: ${id}` : contenido );
 
         }
 
@@ -161,9 +161,14 @@ class Carritos{
         try{
             this.#setConexion();
             const contenido = await this.model.findById(id);
-            const productos = contenido.productos;
-            productos.push(producto);
-            await this.model.findByIdAndUpdate(id, {productos: productos});
+            if(contenido === null){
+                return `No existe el carrito con id: ${id}`
+            }else{
+                const productos = contenido.productos;
+                productos.push(producto)
+                await this.model.findByIdAndUpdate(id, {productos: productos}); 
+                return `Se guardo el producto con id: ${producto._id} en el carrito con id: ${id}`
+            }
         }
 
         catch (err){
@@ -175,10 +180,15 @@ class Carritos{
     async deleteProductById(idCarrito, idProducto){
         try{
             this.#setConexion();
-            const carrito = await this.model.findById(idCarrito);
-            const productos = carrito.productos;
-            const productosUpdate = productos.filter(idEliminado => idEliminado.id !== idProducto);
-            await this.model.findByIdAndUpdate(idCarrito, {productos: productosUpdate});
+            const contenido = await this.model.findById(idCarrito);
+            if(contenido === null){
+                return `No existe el carrito con id: ${id}`
+            }else{
+                const productos = contenido.productos;
+                const productosUpdate = productos.filter(idEliminado => idEliminado.id !== idProducto);
+                await this.model.findByIdAndUpdate(idCarrito, {productos: productosUpdate});
+                return `Se eliminó el producto con id: ${idProducto} en el carrito con id: ${idCarrito}`
+            } 
 
         }
 
@@ -251,7 +261,19 @@ class Usuarios {
         
     }
 
-
+    async updateIdCarrito(idUser, idCarrito){
+            try{
+                this.#setConexion();
+                const contenido = await this.model.findByIdAndUpdate(idUser, {idCarrito: idCarrito});
+                return contenido === 0 ? `User con id: ${idUser} no existente en la bdd` : `User con id: ${idUser} actualizado`;
+    
+            }
+    
+            catch (err){
+                logger.error(`Algo malo paso con updateIdCarrito, ${err}`);
+                return `Algo malo paso con updateIdCarrito: ${err}`
+            }  
+    }
 
 }
 

@@ -11,6 +11,7 @@ import registerOkRouter from './routes/registerOkRouter.js';
 import failRegisterRouter from './routes/failRegisterRouter.js';
 import logOutRouter from './routes/logOutRouter.js';
 import userRouter from './routes/userRouter.js';
+import confirmarPedidoRouter from './routes/confirmarPedidoRouter.js';
 import passport from './auth/passportConfig.js';
 import logger from './logger/lg4js.js'
 import 'dotenv/config';
@@ -40,7 +41,17 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.use(logInRouter,logInOkRouter, failLogInRouter, registerRouter, registerOkRouter, failRegisterRouter, logOutRouter, userRouter);
+app.use(
+  logInRouter,
+  logInOkRouter, 
+  failLogInRouter, 
+  registerRouter, 
+  registerOkRouter, 
+  failRegisterRouter, 
+  logOutRouter, 
+  userRouter, 
+  confirmarPedidoRouter
+  );
 
 app.use('/api', validarSession, productosRouter, carritosRouter);
 
