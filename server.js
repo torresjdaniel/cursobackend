@@ -14,12 +14,11 @@ import userRouter from './routes/userRouter.js';
 import confirmarPedidoRouter from './routes/confirmarPedidoRouter.js';
 import passport from './auth/passportConfig.js';
 import logger from './logger/lg4js.js'
-import 'dotenv/config';
+import { PORT } from './config.js';
 import path from 'path'
 import { fileURLToPath } from 'url';
 
 const app = express();
-const PORT = process.env.PORT || 8080;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 

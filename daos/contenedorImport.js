@@ -4,21 +4,22 @@ import * as contenedorMongoDb from './contenedorMongoDb.js';
 import {productoSchema} from '../model/mongoDbModel.js';
 import {carritoSchema}  from '../model/mongoDbModel.js';
 import {userSchema}  from '../model/mongoDbModel.js';
-import 'dotenv/config';
+import {tipoPersistencia, stringNoSql, coleccionProductos, coleccionCarritos, coleccionUsuarios, stringSql, tablaCarritos, tablaProductos} from "../config.js"
+import logger from '../logger/lg4js.js'
 let productos;
 let carritos;
 let usuarios;
 
-switch (process.env.tipoPersistencia.toLocaleLowerCase()) {
+switch (tipoPersistencia.toLocaleLowerCase()) {
     case 'mongodb':
-        productos = new contenedorMongoDb.Productos(process.env.stringNoSql, process.env.coleccionProductos, productoSchema);
-        carritos = new contenedorMongoDb.Carritos(process.env.stringNoSql, process.env.coleccionCarritos, carritoSchema);
-        usuarios = new contenedorMongoDb.Usuarios(process.env.stringNoSql, process.env.coleccionUsuarios, userSchema);
+        productos = new contenedorMongoDb.Productos(stringNoSql, coleccionProductos, productoSchema);
+        carritos = new contenedorMongoDb.Carritos(stringNoSql, coleccionCarritos, carritoSchema);
+        usuarios = new contenedorMongoDb.Usuarios(stringNoSql, coleccionUsuarios, userSchema);
         break;
     
     case 'sql':
-        productos = new contenedorSql.Productos(JSON.parse(process.env.stringSql), process.env.tablaProductos);
-        carritos = new contenedorSql.Carritos(JSON.parse(process.env.stringSql), process.env.tablaCarritos);
+        productos = new contenedorSql.Productos(JSON.parse(stringSql), tablaProductos);
+        carritos = new contenedorSql.Carritos(JSON.parse(stringSql), tablaCarritos);
         break;
         
     case 'memoria':
@@ -27,7 +28,7 @@ switch (process.env.tipoPersistencia.toLocaleLowerCase()) {
         break;    
 
     default:
-        console.log(`Tipo de persistencia ${process.env.tipoPersistencia} no existente`)
+        logger.info(`Tipo de persistencia ${tipoPersistencia} no existente`);
         break;
 }
 

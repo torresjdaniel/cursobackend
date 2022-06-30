@@ -4,6 +4,8 @@ import passport from 'passport';
 import {Strategy as LocalStrategy } from 'passport-local';
 import bcrypt from 'bcrypt';
 import logger from '../logger/lg4js.js'
+import {mailUser} from '../config.js'
+import sendMail from '../messenger_service/nodeMailer.js'
 
 passport.use('login', new LocalStrategy(
     async (username, password, done) => {
@@ -43,6 +45,8 @@ passport.use('login', new LocalStrategy(
          const newUser = await nuevoUser(username, passHash, req);
 
          user = await usuarios.saveUser(newUser);
+
+         await sendMail(mailUser, 'Nuevo Registro', JSON.stringify(user));
    
          logger.info(`Este user se registro ${user[0]}`);
          

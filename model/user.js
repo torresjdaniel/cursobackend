@@ -13,6 +13,7 @@ export default async function nuevoUser(username, passHash, req) {
         nombre: req.body.nombre,
         direccion: req.body.direccion,
         edad: req.body.edad,
+        tel: req.body.tel,
         avatarImgName: path.join(__dirname, '..', `${req.file.path}`),
         idCarrito: await carritos.create()
     }

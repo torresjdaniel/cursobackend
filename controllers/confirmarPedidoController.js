@@ -1,12 +1,14 @@
 import { carritos } from '../daos/contenedorImport.js';
 import { usuarios } from '../daos/contenedorImport.js';
 import logger from '../logger/lg4js.js';
+import sendMail from '../messenger_service/nodeMailer.js';
+import { sms, whatsApp } from '../messenger_service/twilio.js';
+import { mailUser, adminTel } from '../config.js';
 
-
-export async function get(req, res){
+export async function post(req, res){
     const pedido = await crearPedido(req);
     res.send(pedido);
-    logger.info(informarPedido(pedido));
+    await informarPedido(pedido, req);
     logger.info(`ruta: /confirmarpedido | metodo: POST`);
 };
 
@@ -40,8 +42,10 @@ async function updateCarritoUser(req){
     await usuarios.updateIdCarrito(req.user._id, newIdCarrito);
 }
 
-function informarPedido(pedido){
+async function informarPedido(pedido, req){
     if(pedido[0]){
-        return 'Se informa al admin y user sobre el pedido'
+       await sendMail(mailUser, `Nuevo pedido de ${req.user.nombre} | ${req.user.username}`, JSON.stringify(pedido));
+       await whatsApp(`Nuevo pedido de ${req.user.nombre} | ${req.user.username}`, adminTel);
+       await sms('Su pedido ha sido recibido y se encuentra en proceso', req.user.tel)
     }
 }

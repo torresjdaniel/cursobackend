@@ -4,6 +4,6 @@ import validarSession from '../mdw/validarSession.js';
 
 import * as confirmarPedidoController from '../controllers/confirmarPedidoController.js';
 
-confirmarPedidoRouter.get('/confirmarpedido', validarSession, confirmarPedidoController.get);
+confirmarPedidoRouter.post('/confirmarpedido', validarSession, confirmarPedidoController.post);
 
 export default confirmarPedidoRouter;
