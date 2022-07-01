@@ -1,6 +1,6 @@
 import express, { json, urlencoded } from 'express';
 import session from 'express-session';
-import validarSession from './mdw/validarSession.js';
+import validarSession from './mdw/validarSessionMdw.js';
 import productosRouter from './routes/productosRouter.js';
 import carritosRouter from './routes/carritosRouter.js';
 import logInRouter from './routes/logInRouter.js';
@@ -14,6 +14,7 @@ import userRouter from './routes/userRouter.js';
 import confirmarPedidoRouter from './routes/confirmarPedidoRouter.js';
 import passport from './auth/passportConfig.js';
 import logger from './logger/lg4js.js'
+import noImplemented from './mdw/noImplementedMdw.js';
 import { PORT } from './config.js';
 import path from 'path'
 import { fileURLToPath } from 'url';
@@ -54,16 +55,7 @@ app.use(
 
 app.use('/api', validarSession, productosRouter, carritosRouter);
 
-app.post('/prueba', (req, res) =>{
-  res.send(req.user.username);
-  logger.info(req.user.username);
-})
-
-app.use((req, res) => {
-  const { url, method } = req;
-  res.send(`Ruta ${method} ${url} no está implementada`);
-  logger.warn(`Ruta ${method} ${url} no implementada`);
-})
+app.use(noImplemented);
 
 app.listen(PORT, () => {
   logger.info(`Server UP en el puerto ${PORT}`);

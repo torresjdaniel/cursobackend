@@ -1,6 +1,6 @@
 import { Router } from 'express';
 const confirmarPedidoRouter = Router();
-import validarSession from '../mdw/validarSession.js';
+import validarSession from '../mdw/validarSessionMdw.js';
 
 import * as confirmarPedidoController from '../controllers/confirmarPedidoController.js';
 

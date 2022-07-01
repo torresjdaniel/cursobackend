@@ -11,6 +11,6 @@ const storage = multer.diskStorage({
 })
 
 const upload = multer({ storage })
-const upLoadAvatarImg = upload.single('avatar');
+const upLoadAvatarImg = upload.single('avatarImg');
 
 export default upLoadAvatarImg

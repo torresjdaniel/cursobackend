@@ -25,7 +25,7 @@ const userSchema = new Schema({
     direccion: {type: String, require: true},
     edad: {type: Number, require: true},
     tel: {type: Number, require: true},
-    avatarImgName: { type: String, required: true },
+    avatarImg: { type: String, required: true },
     idCarrito:{ type: String, required: true }
 });
 
