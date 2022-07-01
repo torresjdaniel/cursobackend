@@ -8,7 +8,6 @@ import { mailUser, adminTel } from '../config.js';
 export async function post(req, res){
     const pedido = await crearPedido(req);
     res.send(pedido);
-    await informarPedido(pedido, req);
     logger.info(`ruta: /confirmarpedido | metodo: POST`);
 };
 
@@ -29,6 +28,7 @@ async function crearPedido(req){
             pedido.push(obj);
         };
         await updateCarritoUser(req);
+        await informarPedido(pedido, req);
         return pedido;
     } else{
         await updateCarritoUser(req);
