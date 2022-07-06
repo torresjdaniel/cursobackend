@@ -1,9 +1,8 @@
-const {usuarios} = require('../daos/contenedorImport')
-// const session = require('express-session');
+const {usuarios} = require('../databases/contenedorImport')
 const passport = require('passport');
 const bcrypt = require('bcrypt');
 const LocalStrategy = require('passport-local').Strategy;
-const {logger} = require('../model/loggerModel');
+const {logger} = require('../logger/loggerModel');
 
 
 passport.use('login', new LocalStrategy(

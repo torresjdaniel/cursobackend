@@ -1,6 +1,6 @@
 
 const mongoose = require('mongoose');
-const {logger} = require('../model/loggerModel');
+const {logger} = require('../logger/loggerModel');
 
 class Productos {
 

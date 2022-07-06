@@ -1,6 +1,6 @@
 const dotenv = require('dotenv').config();
 
-const {Productos, Mensajes, Usuarios} = require('../daos/classContenedor');
+const {Productos, Mensajes, Usuarios} = require('../databases/classContenedor');
 const {productoSchema, mensajeSchema, userSchema} = require('../model/noSqlModel')
 
 const productos = new Productos(process.env.stringNoSql, process.env.coleccionProductos, productoSchema);

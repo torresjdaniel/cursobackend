@@ -2,7 +2,7 @@ const cluster = require('cluster')
 const os = require('os')
 const yargs = require('yargs/yargs')(process.argv.slice(2));
 const {server} = require('./server');
-const {logger} = require('./model/loggerModel');
+const {logger} = require('./logger/loggerModel');
 
 const args = yargs
 .default({

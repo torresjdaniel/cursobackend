@@ -1,15 +1,17 @@
 const express = require('express');
 const compression = require ('compression');
-const routerProductos = require('./routes/productos');
-const routerLogIn = require('./routes/userLog');
-const routerInfo = require('./routes/info');
-const routerRandoms = require('./routes/randoms');
+const session= require("express-session");
+const {passport} = require('./middlewares/passport');
+const routerProductos = require('./routes/productosRouter');
+const routerAuth = require('./routes/authRouter');
+const routerInfo = require('./routes/infoRouter');
+const routerRandoms = require('./routes/randomsRouter');
 const { Server: HttpServer } = require("http");
 const { Server: IOServer } = require("socket.io");
-const {mensajes} = require('./daos/contenedorImport')
-const {productos} = require('./daos/contenedorImport')
+const {mensajes} = require('./databases/contenedorImport');
+const {productos} = require('./databases/contenedorImport')
 const {normalizarMensajes} = require('./model/normalizrModel');
-const {logger} = require('./model/loggerModel');
+const {logger} = require('./logger/loggerModel');
 
 const app = express();
 const httpServer = new HttpServer(app);
@@ -20,10 +22,25 @@ function server(port, compre) {
     app.use(compression());
     logger.info('Server con compresión');
   };
+
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
-  app.use(routerLogIn);
+  app.use(
+    session({
+        secret: 'shhhhhhhhhhhhhhhhhhhhh',
+        resave: false,
+        saveUninitialized: false,
+        cookie:{
+          maxAge:600000
+      }
+    })
+  )
+  
+  app.use(passport.initialize())
+  app.use(passport.session())
+  
+  app.use(routerAuth);
   app.use(express.static(__dirname + '/public'));
   app.use(routerInfo);
   app.use('/api', routerProductos, routerRandoms);
