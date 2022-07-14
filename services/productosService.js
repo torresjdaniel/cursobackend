@@ -1,4 +1,4 @@
-const {productos} = require('../databases/contenedorImport');
+const {productos} = require('../databases/factory');
 
 async function listarProductos(){
     return await productos.getAll();

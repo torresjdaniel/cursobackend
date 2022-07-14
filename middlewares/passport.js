@@ -1,4 +1,4 @@
-const {usuarios} = require('../databases/contenedorImport')
+const {usuarios} = require('../databases/factory')
 const passport = require('passport');
 const bcrypt = require('bcrypt');
 const LocalStrategy = require('passport-local').Strategy;
