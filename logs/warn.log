@@ -28,3 +28,12 @@
 [2022-07-06T01:27:03.477] [WARN] generalLogger - Ruta GET /favicon.ico no implementada
 [2022-07-06T01:29:54.355] [WARN] generalLogger - Ruta GET /favicon.ico no implementada
 [2022-07-06T01:30:47.414] [WARN] generalLogger - Ruta GET /favicon.ico no implementada
+[2022-07-14T20:56:23.421] [WARN] generalLogger - Ruta GET /favicon.ico no implementada
+[2022-07-14T20:56:27.210] [WARN] generalLogger - Ruta GET /favicon.ico no implementada
+[2022-07-14T20:56:43.750] [WARN] generalLogger - Ruta GET /favicon.ico no implementada
+[2022-07-14T20:56:44.222] [WARN] generalLogger - Ruta GET /botella no implementada
+[2022-07-14T20:56:44.224] [WARN] generalLogger - Ruta GET /control no implementada
+[2022-07-14T20:56:45.005] [WARN] generalLogger - Ruta GET /blockparty no implementada
+[2022-07-14T20:56:45.027] [WARN] generalLogger - Ruta GET /dbccc no implementada
+[2022-07-14T20:56:45.032] [WARN] generalLogger - Ruta GET /whisky no implementada
+[2022-07-14T20:56:45.035] [WARN] generalLogger - Ruta GET /termo.com no implementada

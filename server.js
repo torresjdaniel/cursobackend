@@ -8,8 +8,8 @@ const routerInfo = require('./routes/infoRouter');
 const routerRandoms = require('./routes/randomsRouter');
 const { Server: HttpServer } = require("http");
 const { Server: IOServer } = require("socket.io");
-const {mensajes} = require('./databases/contenedorImport');
-const {productos} = require('./databases/contenedorImport')
+const {mensajes} = require('./databases/factory');
+const {productos} = require('./databases/factory')
 const {normalizarMensajes} = require('./model/normalizrModel');
 const {logger} = require('./logger/loggerModel');
 
