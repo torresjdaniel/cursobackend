@@ -26,7 +26,7 @@ async function get(req, res){
 
 async function post(req, res){
     const producto = await productosService.registrarProducto(req.body);
-    res.send(`Se recibió el producto: ${JSON.stringify(producto)}`);
+    res.json({msg : "Se recibió un produto", producto});
     const productosActualizados = await productosService.listarProductos();
     req.app.io.sockets.emit('updateList', productosActualizados);
     logger.info(`ruta: /api/productos | metodo: POST | res: ${producto}`);

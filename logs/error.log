@@ -1,2 +1,0 @@
-[2022-06-16T00:04:17.885] [ERROR] generalLogger - Algo malo paso con getById(): CastError: Cast to ObjectId failed for value "2412" (type string) at path "_id" for model "producto2"
-[2022-06-16T00:04:32.294] [ERROR] generalLogger - Algo malo paso con getById(): CastError: Cast to ObjectId failed for value "241222222" (type string) at path "_id" for model "producto2"

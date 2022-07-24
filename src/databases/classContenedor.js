@@ -36,7 +36,7 @@ class Productos {
         try{
             this.#setConexion();
             let contenido = await this.model.findById(id);
-            return (contenido.length === 0 ? contenido = `No existe el producto con id: ${id}` : contenido );
+            return (contenido === null ? contenido = `No existe el producto con id: ${id}` : contenido );
 
         }
 
@@ -66,7 +66,7 @@ class Productos {
         try{
             this.#setConexion();
             const contenido = await this.model.findByIdAndUpdate(id, producto);
-            return contenido === 0 ? `Producto con id: ${id} no existente en la bdd` : `Producto con id: ${id} actualizado`;
+            return contenido === null ? `Producto con id: ${id} no existente en la bdd` : `Producto con id: ${id} actualizado`;
 
         }
 
@@ -81,7 +81,7 @@ class Productos {
         try{
             this.#setConexion();
             const contenido = await this.model.findByIdAndDelete(id);
-            return contenido === 0 ? `Producto con id: ${id} no existente en la bdd` : `Producto con id: ${id} eliminado`;
+            return contenido === null ? `Producto con id: ${id} no existente en la bdd` : `Producto con id: ${id} eliminado`;
             
 
         }

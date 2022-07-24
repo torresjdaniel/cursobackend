@@ -1,0 +1,6 @@
+[2022-06-16T00:04:17.885] [ERROR] generalLogger - Algo malo paso con getById(): CastError: Cast to ObjectId failed for value "2412" (type string) at path "_id" for model "producto2"
+[2022-06-16T00:04:32.294] [ERROR] generalLogger - Algo malo paso con getById(): CastError: Cast to ObjectId failed for value "241222222" (type string) at path "_id" for model "producto2"
+[2022-07-23T19:08:10.608] [ERROR] generalLogger - Algo malo paso con getById(): CastError: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "producto2"
+[2022-07-23T19:09:04.715] [ERROR] generalLogger - Algo malo paso con getById(): CastError: Cast to ObjectId failed for value "{"title":"guantes","price":679,"thumbnail":"guantes grises"}" (type string) at path "_id" for model "producto2"
+[2022-07-23T19:10:26.661] [ERROR] generalLogger - Algo malo paso con getById(): CastError: Cast to ObjectId failed for value "{"title":"guantes","price":679,"thumbnail":"guantes grises"}" (type string) at path "_id" for model "producto2"
+[2022-07-23T19:38:04.520] [ERROR] generalLogger - Algo malo paso con getById(): TypeError: Cannot read property 'length' of null
