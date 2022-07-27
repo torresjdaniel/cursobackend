@@ -22,3 +22,4 @@ switch (process.env.tipoPersistencia.toLocaleLowerCase()) { // por ahora solo mo
 
 module.exports = {mensajes, productos, usuarios};
 
+

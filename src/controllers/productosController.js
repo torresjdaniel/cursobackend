@@ -39,16 +39,16 @@ async function getByID(req, res){
 }
 
 async function put(req, res){
-    const producto = await productosService.actualizarProducto(req.params.id, req.body);
+    const arrayResul = await productosService.actualizarProducto(req.params.id, req.body);
     req.app.io.sockets.emit('updateList', await productosService.listarProductos());
-    res.send(producto);
+    res.send(arrayResul);
     logger.info(`ruta: /api/productos/${req.params.id} | metodo: PUT | res: ${producto}`);
 }
 
 async function del(req, res){
-    const producto = await productosService.eliminarProducto(req.params.id);
+    const arrayResul = await productosService.eliminarProducto(req.params.id);
     req.app.io.sockets.emit('updateList', await  productosService.listarProductos());
-    res.send(producto);
+    res.send(arrayResul);
     logger.info(`ruta: /api/productos/${req.params.id} | metodo: DELETE | res: ${producto}`);
 }
 

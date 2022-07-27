@@ -12,6 +12,7 @@ const {mensajes} = require('./databases/factory');
 const {productos} = require('./databases/factory')
 const {normalizarMensajes} = require('./model/normalizrModel');
 const {logger} = require('./logger/loggerModel');
+const {graphqlMdw} = require('./middlewares/graphqlMdw');
 
 const app = express();
 const httpServer = new HttpServer(app);
@@ -40,6 +41,8 @@ function server(port, compre) {
   app.use(passport.initialize())
   app.use(passport.session())
   
+  app.use('/graphql', graphqlMdw);
+
   app.use(routerAuth);
   app.use(express.static(__dirname + '/public'));
   app.use(routerInfo);
