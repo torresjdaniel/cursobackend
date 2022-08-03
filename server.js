@@ -1,5 +1,4 @@
 import express, { json, urlencoded } from 'express';
-import session from 'express-session';
 import validarSession from './mdw/validarSessionMdw.js';
 import productosRouter from './routes/productosRouter.js';
 import carritosRouter from './routes/carritosRouter.js';
@@ -26,20 +25,7 @@ const __dirname = path.dirname(__filename);
 app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
-
-app.use(
-  session({
-      secret: 'shhhhhhhhhhhhhhhhhhhhh',
-      resave: false,
-      saveUninitialized: false,
-      cookie:{
-        maxAge:600000
-    }
-  })
-)
-
-app.use(passport.initialize())
-app.use(passport.session())
+app.use(passport.initialize());
 
 app.use(
   logInRouter,

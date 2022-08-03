@@ -4,6 +4,6 @@ import passport from '../auth/passportConfig.js';
 import upLoadAvatarImg from '../mdw/multerMdw.js';
 import * as registerController from '../controllers/registerController.js';
 
-registerRouter.post("/register",upLoadAvatarImg, passport.authenticate('register', { failureRedirect: '/failregister', successRedirect: '/registerok' }),registerController.post);
+registerRouter.post("/register",registerController.post);
 
 export default registerRouter;

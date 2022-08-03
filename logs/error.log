@@ -1,0 +1,1 @@
+[2022-08-01T18:31:28.754] [ERROR] generalLogger - Algo malo paso con saveUser(): ValidationError: avatarImg: Path `avatarImg` is required.
