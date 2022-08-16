@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import DaoMongoDb from '../shared/DaoMongoDb.js';
+import DaoMongoDb from '../shared/daoMongoDb.js';
 
 const model = mongoose.model;
 
