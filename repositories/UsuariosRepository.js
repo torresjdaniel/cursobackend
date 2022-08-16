@@ -1,6 +1,6 @@
 import DaoUsuariosFactory from "../daos/usuarios/usuariosDaoFactory.js";
 import Usuario from "../models/UsuarioModel.js";
-import userToDTO from "../dtos/UsuarioDto.js";
+import userToDTO from "../dtos/UsuarioDTO";
 import CustomError from "../models/CustomErrorModel.js";
 
 export default class UsuariosRepository{
