@@ -3,7 +3,7 @@ import * as carritoService from '../services/carritosService.js'
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import CustomError from '../models/CustomErrorModel.js'
-import userToDTO from "../dtos/UsuarioDto.js";
+import userToDTO from "../dtos/UsuarioDTO.js";
 
 
 passport.use('register', new LocalStrategy({
