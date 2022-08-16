@@ -1,4 +1,4 @@
-import DaoProductosMongoDb from "./ProductosDaoMongoDb.js";
+import DaoProductosMongoDb from "./productosDaoMongoDb.js";
 import productoschema  from '../../models/mongoDbModels/productoschema.js'
 import {tipoPersistencia, stringNoSql, coleccionProductos} from "../../config.js"
 import logger from '../../logger/lg4js.js'

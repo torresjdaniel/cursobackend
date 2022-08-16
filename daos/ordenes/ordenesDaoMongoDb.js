@@ -1,4 +1,4 @@
-import DaoMongoDb from '../shared/DaoMongoDb.js';
+import DaoMongoDb from '../shared/daoMongoDb.js';
 
 
 export default class DaoOrdenesMongoDb extends DaoMongoDb{

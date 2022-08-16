@@ -1,4 +1,4 @@
-import DaoUsuariosFactory from "../daos/usuarios/UsuariosDaoFactory.js";
+import DaoUsuariosFactory from "../daos/usuarios/usuariosDaoFactory.js";
 import Usuario from "../models/UsuarioModel.js";
 import userToDTO from "../dtos/UsuarioDTO.js";
 import CustomError from "../models/CustomErrorModel.js";

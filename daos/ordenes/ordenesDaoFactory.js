@@ -1,4 +1,4 @@
-import DaoOrdenesMongoDb from "./OrdenesDaoMongoDb.js";
+import DaoOrdenesMongoDb from "./ordenesDaoMongoDb.js";
 import ordenschema  from '../../models/mongoDbModels/ordenschema.js'
 import {tipoPersistencia, stringNoSql, coleccionOrdenes} from "../../config.js"
 import logger from '../../logger/lg4js.js'

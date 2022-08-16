@@ -1,4 +1,4 @@
-import DaoUsuariosMongoDb from "./UsuariosDaoMongoDb.js";
+import DaoUsuariosMongoDb from "./usuariosDaoMongoDb.js";
 import usuarioschema  from '../../models/mongoDbModels/usuarioSchema.js'
 import {tipoPersistencia, stringNoSql, coleccionUsuarios} from "../../config.js"
 import logger from '../../logger/lg4js.js'
