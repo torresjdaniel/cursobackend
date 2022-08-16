@@ -9,7 +9,7 @@ export async function post(req, res, next) {
     logger.info(`ruta: api/images | metodo: POST`);
     
     try {
-        const imgName = path.join(__dirname, '..', `${req.file.path}`);
+        const imgName = `${req.hostname}/${req.file.filename}`;
         logger.info(imgName);
         res.status(201).send(imgName); 
     } 
