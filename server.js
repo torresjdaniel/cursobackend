@@ -29,6 +29,7 @@ const __dirname = path.dirname(__filename);
 app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public/img'))
 app.use(passport.initialize());
 
 app.use(logInRouter, infoRouter);
