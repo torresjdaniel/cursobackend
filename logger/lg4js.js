@@ -1,10 +1,15 @@
 import log4js from 'log4js'
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 log4js.configure({
     appenders: {
       console: { type: "console" },
-      fileWarn: { type: 'file', filename: './logs/warn.log' },
-      fileError: { type: 'file', filename: './logs/error.log' },
+      fileWarn: { type: 'file', filename: path.join(__dirname, '..', `logs/warn.log`) },
+      fileError: { type: 'file', filename: path.join(__dirname, '..', `logs/error.log`) },
       loggerConsole: { type: 'logLevelFilter', appender: 'console', level: 'info'},
       loggerWarn: { type: 'logLevelFilter', appender: 'fileWarn', level: 'warn', maxLevel: 'warn'},
       loggerError: { type: 'logLevelFilter', appender: 'fileError', level: 'error'}
