@@ -1,6 +1,6 @@
 import orderToDTO from "../dtos/OrdenDTO.js";
 import CustomError from "../models/CustomErrorModel.js";
-import DaoOrdenesFactory from "../daos/ordenes/ordenesDaoFactory.js";
+import DaoOrdenesFactory from "../daos/ordenes/OrdenesDaoFactory.js";
 
 export default class OrdenesRepository {
     #dao

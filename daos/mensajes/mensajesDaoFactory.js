@@ -1,4 +1,4 @@
-import DaoMensajesMongoDb from "./mensajesDaoMongoDb.js";
+import DaoMensajesMongoDb from "./MensajesDaoMongoDb.js";
 import mensajeSchema  from '../../models/mongoDbModels/mensajeSchema.js'
 import {tipoPersistencia, stringNoSql, coleccionMensajes} from "../../config.js"
 import logger from '../../logger/lg4js.js'

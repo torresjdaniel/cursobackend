@@ -1,4 +1,4 @@
-import DaoProductosFactory from "../daos/productos/productosDaoFactory.js";
+import DaoProductosFactory from "../daos/productos/ProductosDaoFactory.js";
 import productToDTO  from "../dtos/ProductoDTO.js";
 import CustomError from "../models/CustomErrorModel.js";
 

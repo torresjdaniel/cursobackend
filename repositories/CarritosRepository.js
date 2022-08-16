@@ -1,4 +1,4 @@
-import DaoCarritosFactory from "../daos/carritos/carritosDaoFactory.js";
+import DaoCarritosFactory from "../daos/carritos/CarritosDaoFactory.js";
 import cartToDTO from "../dtos/CarritoDTO.js";
 import Carrito from '../models/CarritoModel.js';
 import CustomError from "../models/CustomErrorModel.js";

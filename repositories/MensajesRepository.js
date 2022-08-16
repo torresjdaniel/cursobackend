@@ -1,6 +1,6 @@
 import messageToDTO from "../dtos/MensajeDTO.js";
 import CustomError from "../models/CustomErrorModel.js";
-import DaoMensajesFactory from "../daos/mensajes/mensajesDaoFactory.js";
+import DaoMensajesFactory from "../daos/mensajes/MensajesDaoFactory.js";
 
 export default class MensajesRepository {
     #dao
